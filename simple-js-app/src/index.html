@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple JS App</title>
+    <meta charset="UTF-8" />
+    <link href="index.css" rel="stylesheet" type="text/css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="item">
+        <h1>Home</h1>
+        <select class="dropdown" name="select" id="selectHome">
+          <option>Home</option>
+          <option>Home 1</option>
+          <option>Home 2</option>
+          <option>Home 3</option>
+        </select>
+      </div>
+      <div class="item">
+        <h1>Edit home</h1>
+        <div class="input-button">
+          <input
+            class="input-button__field"
+            type="text"
+            placeholder="Enter the home name"
+            required
+            id="input"
+          />
+          <button class="input-button__button" id="save">Save</button>
+        </div>
+      </div>
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>
