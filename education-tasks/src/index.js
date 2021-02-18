@@ -104,6 +104,27 @@ function printObjectKeysAndValues2() {
 
 //#endregion
 
+function compareObject(obj1, obj2) {
+  for (let prop in obj1) {
+    if (obj2.hasOwnProperty(prop) && obj1[prop] === obj2[prop]) {
+      continue;
+    } else {
+      return false;
+    }
+  }
+  return true;
+}
+
+function compareObjects() {
+  const person = { name: "alex", lastName: "test", age: 20 };
+  const person1 = { name: "alex", lastName: "test", age: 20 };
+
+  const parrot = { name: "kesha", age: 1 };
+
+  console.log("Compare person with person1: " + compareObject(person, person1));
+  console.log("Compare person with parrot: " + compareObject(person, parrot));
+}
+
 printStringSymbol();
 replaceStringSymbols();
 indexOfElement();
@@ -111,3 +132,4 @@ removeElementsOfArray();
 filterArray();
 printObjectKeysAndValues1();
 printObjectKeysAndValues2();
+compareObjects();
