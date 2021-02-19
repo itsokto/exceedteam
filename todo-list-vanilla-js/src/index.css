@@ -1,0 +1,97 @@
+* {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container {
+  margin: auto;
+  max-width: 600px;
+  padding: 30px;
+}
+
+.dropdown {
+  outline: none;
+  text-align-last: center;
+  max-width: 250px;
+  padding: 8px;
+  border: 1px solid lightgrey;
+  border-radius: 4px;
+  background: transparent;
+  transition: all 0.3s;
+}
+
+.todo {
+  padding: 8px;
+}
+
+.todo__header {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+  margin-bottom: 10px;
+}
+
+.todo__button {
+  outline: none;
+  padding: 8px;
+  background-color: transparent;
+  border: 1px solid lightgray;
+  border-radius: 4px;
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+
+.todo__input {
+  outline: none;
+  width: 100%;
+  max-width: 400px;
+  padding: 8px;
+  border: 1px solid lightgrey;
+  border-radius: 4px;
+  transition: all 0.3s;
+}
+
+.todo__list {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
+.todo__item {
+  display: grid;
+  align-items: center;
+  grid-template-columns: auto 1fr auto;
+  column-gap: 10px;
+}
+
+.todo__item__text {
+  font-size: 14px;
+}
+
+.todo__item__button {
+  justify-self: right;
+  -webkit-mask: url(trash-solid.svg) no-repeat center;
+  mask: url(trash-solid.svg) no-repeat center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  background-color: lightgray;
+  transition: all 0.3s;
+  width: 14px;
+  height: 14px;
+}
+
+.todo__input:hover,
+.todo__button:hover,
+.dropdown:hover {
+  border-color: gray;
+}
+
+.todo__item__button:hover {
+  background-color: crimson;
+}
+
+.todo__input:focus,
+.todo__button:focus,
+.dropdown:focus {
+  border-color: skyblue;
+}

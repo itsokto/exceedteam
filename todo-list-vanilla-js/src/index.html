@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple JS App</title>
+    <meta charset="UTF-8" />
+    <link href="index.css" rel="stylesheet" type="text/css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="todo">
+        <div class="todo__header">
+          <input id="checkAll" type="checkbox" />
+          <input id="input" class="todo__input" type="text" />
+          <button id="add" class="todo__button">Добавить</button>
+          <button id="deleteAll" class="todo__button">Удалить всё</button>
+          <select id="filter" class="dropdown">
+            <option value="all">Все</option>
+            <option value="active">В процессе</option>
+            <option value="done">Выполненные</option>
+          </select>
+        </div>
+
+        <div id="list" class="todo__list"></div>
+      </div>
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>
