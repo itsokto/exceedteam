@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Simple JS App</title>
+    <title>TODO list Vanilla JS</title>
     <meta charset="UTF-8" />
     <link href="index.css" rel="stylesheet" type="text/css" />
   </head>
@@ -11,9 +11,11 @@
       <div class="todo">
         <div class="todo__header">
           <input id="check-all" type="checkbox" />
-          <input id="input" class="todo__input" type="text" />
+          <input id="input" class="todo__input" type="text" required />
           <button id="add-button" class="todo__button">Добавить</button>
-          <button id="delete-all-button" class="todo__button">Удалить всё</button>
+          <button id="delete-all-button" class="todo__button">
+            Удалить всё
+          </button>
           <select id="filter" class="dropdown">
             <option value="all">Все</option>
             <option value="active">В процессе</option>
