@@ -19,25 +19,23 @@ deleteAll.addEventListener("click", () => {
 checkAll.addEventListener("click", () => {
   for (const item of todoList.children) {
     const checkbox = item.querySelector("input");
-    checkbox.checked = checkAll.checked;
-    toggleTodo(item);
+    if (checkbox.checked !== checkAll.checked) {
+      checkbox.checked = checkAll.checked;
+      toggleTodo(item);      
+    }
   }
-
-  applyFilter();
 });
 
-filter.addEventListener("click", applyFilter);
+filter.addEventListener("click", applyFilterForAll);
 
-function applyFilter() {
-  if (filter.value === "all") {
-    for (const item of todoList.children) {
-      item.style.display = "grid";
-    }
-  } else {
-    for (const item of todoList.children) {
-      item.style.display =
-        item.dataset.status === filter.value ? "grid" : "none";
-    }
+function applyFilterFor(element) {
+  const display = filter.value === "all" || element.dataset.status === filter.value ? "grid" : "none";
+  element.style.display = display;
+}
+
+function applyFilterForAll() {
+  for (const item of todoList.children) {
+    applyFilterFor(item);
   }
 }
 
@@ -46,9 +44,8 @@ function removeTodo(element) {
 }
 
 function toggleTodo(element) {
-  element.dataset.status =
-    element.dataset.status === "active" ? "done" : "active";
-  applyFilter();
+  element.dataset.status = element.dataset.status === "active" ? "done" : "active";
+  applyFilterFor(element);
 }
 
 function createTodoJS(text, status) {
@@ -70,7 +67,8 @@ function createTodoJS(text, status) {
   todo.appendChild(todoText);
   todo.appendChild(deleteButton);
 
-  checkbox.addEventListener("click", () => toggleTodo(todo));
+  checkbox.addEventListener("change", () => toggleTodo(todo));
+
   deleteButton.addEventListener("click", () => removeTodo(todo));
 
   return todo;
