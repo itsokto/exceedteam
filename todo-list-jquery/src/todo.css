@@ -1,0 +1,222 @@
+#counter {
+  user-select: none;
+  white-space: nowrap;
+}
+
+#clear-completed {
+  user-select: none;
+  cursor: pointer;
+  white-space: nowrap;
+  justify-self: right;
+}
+
+#clear-completed:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.todo {
+  width: 500px;
+  height: auto;
+  background: #fff;
+  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.15);
+}
+
+.todo__header {
+  display: grid;
+  grid-template-columns: min-content auto;
+  align-items: center;
+  column-gap: 0.5em;
+  border-bottom: 1px solid #e6e6e6;
+  padding: 0 8px;
+  height: 3rem;
+  font-size: 1.5rem;
+}
+
+.todo__header__checkbox {
+  user-select: none;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: min-content auto;
+  align-items: center;
+  font-size: 1.5rem;
+  color: var(--color);
+}
+
+.todo__header__checkbox__control {
+  display: inline-grid;
+  width: 1em;
+  height: 1em;
+  align-items: center;
+  justify-items: center;
+}
+
+.todo__header__checkbox__control svg {
+  width: 0.7em;
+  height: 0.7em;
+  color: lightgray;
+  transition: all 0.1s;
+}
+
+.todo__header__checkbox input {
+  display: none;
+}
+
+.todo__header__checkbox input:checked + .todo__header__checkbox__control svg {
+  color: rgb(0, 0, 0, 0.75);
+}
+
+.todo__header__input {
+  outline: none;
+  border: none;
+  width: 100%;
+  font-size: inherit;
+  color: rgb(0, 0, 0, 0.7);
+}
+
+.todo__header__input::placeholder {
+  font-style: italic;
+  color: #e6e6e6;
+}
+
+.todo__footer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 12px;
+  align-items: center;
+  box-shadow: /* The top layer shadow */ 0 1px 1px rgba(0, 0, 0, 0.15),
+    /* The second layer */ 0 10px 0 -5px #fff,
+    /* The second layer shadow */ 0 10px 1px -4px rgba(0, 0, 0, 0.15),
+    /* The third layer */ 0 20px 0 -10px #fff,
+    /* The third layer shadow */ 0 20px 1px -9px rgba(0, 0, 0, 0.15);
+}
+
+.todo__footer__filters {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 170px;
+}
+
+.todo__footer__filter {
+  user-select: none;
+  cursor: pointer;
+}
+
+.todo__footer__filter .footer-text {
+  border: 1px solid transparent;
+  border-radius: 2px;
+  padding: 4px;
+}
+
+.todo__footer__filter input {
+  display: none;
+}
+
+.todo__footer__filter input:checked + .footer-text {
+  border-color: #ead8d8;
+}
+
+.footer-text {
+  font-size: 14px;
+  color: gray;
+}
+
+.todo__checkbox {
+  user-select: none;
+  cursor: pointer;
+  display: grid;
+  grid-column-gap: 0.5em;
+  grid-template-columns: min-content auto;
+  align-items: center;
+  font-size: 1.5rem;
+}
+
+.todo__checkbox__control {
+  display: inline-grid;
+  width: 1em;
+  height: 1em;
+  align-items: center;
+  justify-items: center;
+  border: 1px solid lightgrey;
+  border-radius: 1em;
+  color: aquamarine;
+}
+
+.todo__checkbox__control svg {
+  opacity: 0;
+  width: 0.7em;
+  height: 0.7em;
+  transform: rotate(-15deg);
+}
+
+.todo__checkbox input {
+  display: none;
+}
+
+.todo__checkbox__label {
+  color: rgb(0, 0, 0, 0.7);
+  font-size: inherit;
+}
+
+.todo__checkbox input:checked + .todo__checkbox__control {
+  border-color: aquamarine;
+}
+
+.todo__checkbox input:checked + .todo__checkbox__control svg {
+  opacity: 1;
+}
+.todo__checkbox input:checked ~ .todo__checkbox__label {
+  color: gray;
+  text-decoration: line-through;
+}
+
+.todo__list {
+  display: flex;
+  flex-direction: column;
+}
+
+.todo__item {
+  display: grid;
+  align-items: center;
+  grid-template-columns: auto 1fr auto;
+  column-gap: 0.5em;
+  padding: 0 8px;
+  height: 3rem;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.todo__item .todo__item__button {
+  opacity: 0;
+}
+
+.todo__item:hover .todo__item__button {
+  opacity: 1;
+}
+
+.todo__item__button {
+  display: inline-grid;
+  width: 1em;
+  height: 1em;
+  color: darkred;
+  justify-self: right;
+  align-content: center;
+  justify-content: center;
+}
+
+.todo__item__button svg {
+  width: 0.7em;
+  height: 0.7em;
+}
+
+.todo__header__input:hover {
+  border-color: gray;
+}
+
+.todo__item__button:hover {
+  color: crimson;
+}
+
+.todo__header__input:focus {
+  border-color: skyblue;
+}
