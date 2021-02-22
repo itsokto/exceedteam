@@ -56,6 +56,10 @@ $items.on("change", ".todo__item .todo__checkbox input", function () {
 
   countActiveTodos();
   toggleClearCompleted();
+
+  if ($checkAll.is(":checked") !== $(this).is(":checked")) {
+    $checkAll.prop("checked", $(this).is(":checked"));
+  }
 });
 
 $items.on("click", ".todo__item .todo__item__button", function () {
