@@ -1,0 +1,56 @@
+<div class="todo">
+  <div class="todo__header">
+    <label id="check-all-checkbox" class="todo__header__checkbox">
+      <input
+        #checkAll
+        type="checkbox"
+        name="checkbox"
+        (change)="toggleAll(checkAll.checked)"
+      />
+      <span class="todo__header__checkbox__control">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240.811 240.811">
+          <path
+            fill="currentColor"
+            d="M220.088,57.667l-99.671,99.695L20.746,57.655c-4.752-4.752-12.439-4.752-17.191,0
+                                c-4.74,4.752-4.74,12.451,0,17.203l108.261,108.297l0,0l0,0c4.74,4.752,12.439,4.752,17.179,0L237.256,74.859
+                                c4.74-4.752,4.74-12.463,0-17.215C232.528,52.915,224.828,52.915,220.088,57.667z"
+          />
+        </svg>
+      </span>
+    </label>
+    <input
+      #input
+      class="todo__header__input"
+      type="text"
+      placeholder="What needs to be done?"
+      (keyup.enter)="add(input.value)"
+    />
+  </div>
+
+  <div id="list" class="todo__list" *ngFor="let todo of todos">
+    <app-todo [todo]="todo"></app-todo>
+  </div>
+
+  <div class="todo__footer">
+    <p id="counter" class="footer-text">
+      {{ countTodos() }}
+    </p>
+    <div class="todo__footer__filters">
+      <label class="todo__footer__filter">
+        <input type="radio" name="filter" value="all" checked />
+        <span class="footer-text">All</span>
+      </label>
+      <label class="todo__footer__filter">
+        <input type="radio" name="filter" value="active" />
+        <span class="footer-text">Active</span>
+      </label>
+      <label class="todo__footer__filter">
+        <input type="radio" name="filter" value="done" />
+        <span class="footer-text">Completed</span>
+      </label>
+    </div>
+    <p id="clear-completed" class="footer-text" (click)="clearCompleted()">
+      Clear completed
+    </p>
+  </div>
+</div>

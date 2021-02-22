@@ -1,0 +1,124 @@
+#counter {
+  user-select: none;
+  white-space: nowrap;
+}
+
+#clear-completed {
+  user-select: none;
+  cursor: pointer;
+  white-space: nowrap;
+  justify-self: right;
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+}
+
+.todo {
+  max-width: 600px;
+  height: auto;
+  background: #fff;
+  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.15);
+  margin: auto;
+}
+
+.todo__header {
+  display: grid;
+  grid-template-columns: min-content auto;
+  align-items: center;
+  column-gap: 0.5em;
+  border-bottom: 1px solid #e6e6e6;
+  padding: 0 8px;
+  height: 3rem;
+  font-size: 1.5rem;
+}
+
+.todo__header__checkbox {
+  $self: &;
+  user-select: none;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: min-content auto;
+  align-items: center;
+  font-size: 1.5rem;
+  color: lightgray;
+
+  input {
+    display: none;
+    &:checked + .todo__header__checkbox__control {
+      svg {
+        color: rgb(0, 0, 0, 0.75);
+      }
+    }
+  }
+
+  &__control {
+    display: inline-grid;
+    width: 1em;
+    height: 1em;
+    align-items: center;
+    justify-items: center;
+    svg {
+      width: 0.7em;
+      height: 0.7em;
+      color: lightgray;
+      transition: all 0.1s;
+    }
+  }
+}
+
+.todo__header__input {
+  outline: none;
+  border: none;
+  width: 100%;
+  font-size: inherit;
+  color: rgb(0, 0, 0, 0.7);
+  &::placeholder {
+    font-style: italic;
+    color: #e6e6e6;
+  }
+}
+
+.todo__footer {
+  $self: &;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 12px;
+  align-items: center;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), 0 10px 0 -5px #fff,
+    0 10px 1px -4px rgba(0, 0, 0, 0.15), 0 20px 0 -10px #fff,
+    0 20px 1px -9px rgba(0, 0, 0, 0.15);
+}
+
+.todo__footer__filters {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 170px;
+}
+
+.todo__footer__filter {
+  user-select: none;
+  cursor: pointer;
+  .footer-text {
+    border: 1px solid transparent;
+    border-radius: 2px;
+    padding: 4px;
+  }
+  input {
+    display: none;
+    &:checked + .footer-text {
+      border-color: #ead8d8;
+    }
+  }
+}
+
+.footer-text {
+  font-size: 14px;
+  color: gray;
+}
+
+.todo__list {
+  display: flex;
+  flex-direction: column;
+}

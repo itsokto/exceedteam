@@ -1,0 +1,82 @@
+.todo__item {
+  $self: &;
+  display: grid;
+  align-items: center;
+  grid-template-columns: auto 1fr auto;
+  column-gap: 0.5em;
+  padding: 0 8px;
+  height: 3rem;
+  border-bottom: 1px solid #e6e6e6;
+
+  &__button {
+    opacity: 0;
+    display: inline-grid;
+    width: 1em;
+    height: 1em;
+    color: darkred;
+    justify-self: right;
+    align-content: center;
+    justify-content: center;
+    svg {
+      width: 0.7em;
+      height: 0.7em;
+    }
+    &:hover {
+      color: crimson;
+    }
+  }
+
+  &:hover {
+    .todo__item__button {
+      opacity: 1;
+    }
+  }
+}
+
+.todo__checkbox {
+  $self: &;
+  user-select: none;
+  cursor: pointer;
+  display: grid;
+  grid-column-gap: 0.5em;
+  grid-template-columns: min-content auto;
+  align-items: center;
+  font-size: 1.5rem;
+
+  input {
+    display: none;
+    &:checked + .todo__checkbox__control {
+      border-color: aquamarine;
+      svg {
+        opacity: 1;
+      }
+
+      & ~ .todo__checkbox__label {
+        color: gray;
+        text-decoration: line-through;
+      }
+    }
+  }
+
+  &__control {
+    display: inline-grid;
+    width: 1em;
+    height: 1em;
+    align-items: center;
+    justify-items: center;
+    border: 1px solid lightgrey;
+    border-radius: 1em;
+    color: aquamarine;
+    svg {
+      opacity: 0;
+      width: 0.7em;
+      height: 0.7em;
+      transform: rotate(-15deg);
+    }
+  }
+
+  &__label {
+    color: rgb(0, 0, 0, 0.7);
+    font-size: inherit;
+  }
+}
