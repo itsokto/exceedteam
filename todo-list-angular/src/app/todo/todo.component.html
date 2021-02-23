@@ -2,9 +2,7 @@
   <label class="todo__checkbox">
     <input
       type="checkbox"
-      name="checkbox"
-      (change)="toggle()"
-      [checked]="todo.status == todoStatus.Done"
+      [(ngModel)]="todo.isDone"
     />
     <span class="todo__checkbox__control">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">

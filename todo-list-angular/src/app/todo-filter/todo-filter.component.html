@@ -1,0 +1,12 @@
+<div class="todo__filter">
+  <label class="todo__filter__item" *ngFor="let filterItem of filters">
+    <input
+      type="radio"
+      name="filter"
+      [value]="filterItem"
+      [(ngModel)]="filter"
+      (change)="onChange()"
+    />
+    <span class="footer-text">{{ getText(filterItem) }}</span>
+  </label>
+</div>

@@ -1,4 +1,4 @@
-import { Todo, TodoStatus } from './todo';
+import { Todo } from '../types/todo';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -8,7 +8,10 @@ export class TodosDataService {
   private todos: Todo[] = [];
 
   add(text: string) {
-    this.todos.push(new Todo(text, TodoStatus.Active));
+    if (text.trim() === '') {
+      return;
+    }
+    this.todos.push(new Todo(text));
   }
 
   remove(todo: Todo) {
@@ -17,6 +20,12 @@ export class TodosDataService {
     if (index != -1) {
       this.todos.splice(index, 1);
     }
+  }
+
+  clearCompleted() {
+    this.todos
+      .filter((todo) => todo.isDone)
+      .forEach((done) => this.todos.splice(this.todos.indexOf(done), 1));
   }
 
   get() {

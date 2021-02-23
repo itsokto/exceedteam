@@ -1,0 +1,22 @@
+.todo__filter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 170px;
+
+  &__item {
+    user-select: none;
+    cursor: pointer;
+    .footer-text {
+      border: 1px solid transparent;
+      border-radius: 2px;
+      padding: 4px;
+    }
+    input {
+      display: none;
+      &:checked + .footer-text {
+        border-color: #ead8d8;
+      }
+    }
+  }
+}

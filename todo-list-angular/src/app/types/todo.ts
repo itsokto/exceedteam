@@ -1,14 +1,15 @@
-export enum TodoStatus {
+export enum TodoFilter {
+  All,
   Active,
   Done,
 }
 
 export class Todo {
   text: string;
-  status: TodoStatus;
+  isDone: boolean;
 
-  constructor(text: string, status: TodoStatus) {
+  constructor(text: string) {
     this.text = text;
-    this.status = status;
+    this.isDone = false;
   }
 }

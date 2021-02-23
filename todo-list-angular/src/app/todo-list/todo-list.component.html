@@ -1,10 +1,10 @@
 <div class="todo">
   <div class="todo__header">
-    <label id="check-all-checkbox" class="todo__header__checkbox">
+    <label *ngIf="todos.length > 0" class="todo__header__checkbox">
       <input
         #checkAll
         type="checkbox"
-        name="checkbox"
+        [checked]="isTogglerChecked"
         (change)="toggleAll(checkAll.checked)"
       />
       <span class="todo__header__checkbox__control">
@@ -19,37 +19,29 @@
       </span>
     </label>
     <input
-      #input
       class="todo__header__input"
       type="text"
       placeholder="What needs to be done?"
-      (keyup.enter)="add(input.value)"
+      [(ngModel)]="todoText"
+      (keyup.enter)="add()"
     />
   </div>
 
-  <div id="list" class="todo__list" *ngFor="let todo of todos">
-    <app-todo [todo]="todo"></app-todo>
+  <div class="todo__list" *ngFor="let todo of todos">
+    <app-todo *ngIf="isTodoVisible(todo)" [todo]="todo"></app-todo>
   </div>
 
-  <div class="todo__footer">
-    <p id="counter" class="footer-text">
-      {{ countTodos() }}
+  <div *ngIf="todos.length > 0" class="todo__footer">
+    <p class="footer-text">
+      {{ activeTodosCount }}
     </p>
-    <div class="todo__footer__filters">
-      <label class="todo__footer__filter">
-        <input type="radio" name="filter" value="all" checked />
-        <span class="footer-text">All</span>
-      </label>
-      <label class="todo__footer__filter">
-        <input type="radio" name="filter" value="active" />
-        <span class="footer-text">Active</span>
-      </label>
-      <label class="todo__footer__filter">
-        <input type="radio" name="filter" value="done" />
-        <span class="footer-text">Completed</span>
-      </label>
-    </div>
-    <p id="clear-completed" class="footer-text" (click)="clearCompleted()">
+    <app-todo-filter [(filter)]="filter"></app-todo-filter>
+    <p
+      id="clear-completed"
+      *ngIf="isClearCompletedVisible"
+      class="footer-text"
+      (click)="clearCompleted()"
+    >
       Clear completed
     </p>
   </div>

@@ -1,48 +1,59 @@
-import { TodosDataService } from './../types/todos-data.service';
-import { Todo, TodoStatus } from './../types/todo';
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { TodosDataService } from '../services/todos-data.service';
+import { Todo, TodoFilter } from '../types/todo';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-todo-list',
   templateUrl: './todo-list.component.html',
   styleUrls: ['./todo-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TodoListComponent implements OnInit {
   private dataService: TodosDataService;
+
+  filter: TodoFilter;
+  todoText: string;
   todos: Todo[];
 
   constructor(dataService: TodosDataService) {
     this.dataService = dataService;
+    this.filter = TodoFilter.All;
   }
 
   ngOnInit(): void {
     this.todos = this.dataService.get();
   }
 
-  add(text: string): void {
-    this.dataService.add(text);
+  get activeTodosCount(): string {
+    const length = this.todos.filter((todo) => !todo.isDone).length;
+
+    return length == 1 ? `${length} item left` : `${length} items left`;
   }
 
-  countTodos(): string {
-    const active = this.todos.filter(
-      (todo) => todo.status == TodoStatus.Active
-    );
+  get isTogglerChecked(): boolean {
+    return this.todos.every((todo) => todo.isDone);
+  }
 
-    return active.length == 1
-      ? `${active.length} item left`
-      : `${active.length} items left`;
+  get isClearCompletedVisible(): boolean {
+    return this.todos.some((todo) => todo.isDone);
+  }
+
+  isTodoVisible(todo: Todo): boolean {
+    if (this.filter == TodoFilter.All) return true;
+    return this.filter == TodoFilter.Active ? !todo.isDone : todo.isDone;
+  }
+
+  add(): void {
+    this.dataService.add(this.todoText);
+    this.todoText = '';
   }
 
   clearCompleted(): void {
-    this.todos
-      .filter((todo) => todo.status == TodoStatus.Done)
-      .forEach((todo) => this.todos.splice(this.todos.indexOf(todo), 1));
+    this.dataService.clearCompleted();
   }
 
   toggleAll(toggle: boolean): void {
     this.todos.forEach((todo) => {
-      todo.status = toggle ? TodoStatus.Done : TodoStatus.Active;
+      todo.isDone = toggle;
     });
   }
 }
