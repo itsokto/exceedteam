@@ -22,6 +22,7 @@ export class TodoComponent implements OnInit {
   }
 
   toggleRename(): void {
+    if (this.todo.title === '') return;
     this.isReadonly = !this.isReadonly;
   }
 }
