@@ -69,7 +69,7 @@ exports.update = (req, res) => {
         res.status(404).send({
           message: `Cannot update Todo with id=${id}. Maybe Todo was not found!`,
         });
-      } else res.send({ message: "Todo was updated successfully." });
+      } else res.send(data);
     })
     .catch((err) => {
       res.status(500).send({
@@ -89,9 +89,7 @@ exports.delete = (req, res) => {
           message: `Cannot delete Todo with id=${id}. Maybe Todo was not found!`,
         });
       } else {
-        res.send({
-          message: "Todo was deleted successfully!",
-        });
+        res.send(data);
       }
     })
     .catch((err) => {

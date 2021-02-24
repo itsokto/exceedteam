@@ -1,14 +1,15 @@
 module.exports = (mongoose) => {
-  const Todo = mongoose.model(
-    "todo",
-    mongoose.Schema(
-      {
-        title: String,
-        isDone: Boolean,
-      },
-      { timestamps: true }
-    )
+  const schema = mongoose.Schema(
+    {
+      title: String,
+      isDone: Boolean,
+    },
+    { timestamps: true }
   );
+
+  schema.set("toJSON", { virtuals: true, versionKey: false });
+
+  const Todo = mongoose.model("todo", schema);
 
   return Todo;
 };
