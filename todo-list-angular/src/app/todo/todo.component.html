@@ -11,8 +11,10 @@
       class="todo__checkbox__label"
       [(ngModel)]="todo.title"
       [readonly]="isReadonly"
-      (dblclick)="toggleRename()"
-      (keyup.enter)="toggleRename()"
+      (dblclick)="toggleRename(true)"
+      (keyup.enter)="toggleRename(false)"
+      (focusout)="toggleRename(false)"
+      (mousedown)="preventSelection($event)"
     />
   </label>
   <div class="todo__item__button" (click)="remove()">

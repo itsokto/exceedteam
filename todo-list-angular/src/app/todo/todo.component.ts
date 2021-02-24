@@ -21,8 +21,14 @@ export class TodoComponent implements OnInit {
     this.dataService.remove(this.todo);
   }
 
-  toggleRename(): void {
+  toggleRename(toggle: boolean): void {
     if (this.todo.title === '') return;
-    this.isReadonly = !this.isReadonly;
+    this.isReadonly = !toggle;
+  }
+
+  preventSelection(event: MouseEvent): void {
+    if (event.detail > 1 && this.isReadonly) {
+      event.preventDefault();
+    }
   }
 }
