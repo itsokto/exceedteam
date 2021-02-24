@@ -46,7 +46,7 @@ export class TodoListComponent implements OnInit {
   }
 
   clearCompleted(): void {
-    this.dataService.clearCompleted();
+    this.dataService.clearCompleted().subscribe();
 
     this.todos = this.todos.filter((todo) => !todo.isDone);
   }
@@ -54,9 +54,9 @@ export class TodoListComponent implements OnInit {
   toggleAll(toggle: boolean): void {
     this.todos.forEach((todo) => {
       todo.isDone = toggle;
-
-      this.dataService.update(todo).subscribe();
     });
+
+    this.dataService.toggleAll(toggle).subscribe();
   }
 
   onRemove(todo: Todo): void {

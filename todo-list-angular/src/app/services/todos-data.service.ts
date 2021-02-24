@@ -1,4 +1,5 @@
 import { Todo } from '../types/todo';
+import { TodoResponse } from '../types/todo-response';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -19,8 +20,8 @@ export class TodosDataService {
     return this.httpClient.post<Todo>(this.baseUrl, todo);
   }
 
-  clearCompleted(): void {
-    this.httpClient.delete(this.baseUrl).subscribe();
+  clearCompleted(): Observable<TodoResponse> {
+    return this.httpClient.delete<TodoResponse>(this.baseUrl);
   }
 
   get(): Observable<Todo[]> {
@@ -43,5 +44,11 @@ export class TodosDataService {
     const url = `${this.baseUrl}/${todo.id}`;
 
     return this.httpClient.delete<Todo>(url);
+  }
+
+  toggleAll(toggle: boolean): Observable<TodoResponse> {
+    return this.httpClient.patch<TodoResponse>(this.baseUrl, {
+      toggle: toggle,
+    });
   }
 }
