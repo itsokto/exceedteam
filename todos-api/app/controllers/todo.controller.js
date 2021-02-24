@@ -114,3 +114,19 @@ exports.deleteCompleted = (req, res) => {
       });
     });
 };
+
+exports.toggleAll = (req, res) => {
+  const toggle = req.body.toggle;
+
+  Todo.updateMany({ isDone: toggle })
+    .then((data) => {
+      res.send({
+        message: `${data.nModified} Todos were updated successfully!`,
+      });
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "Some error occurred while updating Todos.",
+      });
+    });
+};

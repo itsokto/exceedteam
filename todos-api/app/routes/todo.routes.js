@@ -12,6 +12,9 @@ module.exports = () => {
   // Retrieve a single Todo with id
   router.get("/:id", Todos.findById);
 
+  // Toggle all Todos
+  router.patch("/", Todos.toggleAll);
+
   // Update a Todo with id
   router.put("/:id", Todos.update);
 
