@@ -1,6 +1,9 @@
 <div class="todo">
   <div class="todo__header">
-    <label *ngIf="todos.length > 0" class="todo__header__checkbox">
+    <label
+      [ngStyle]="{ opacity: todos.length > 0 ? 1 : 0 }"
+      class="todo__header__checkbox"
+    >
       <input
         #checkAll
         type="checkbox"
