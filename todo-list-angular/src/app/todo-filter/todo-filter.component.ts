@@ -15,7 +15,7 @@ export class TodoFilterComponent implements OnInit {
   filters: TodoFilter[];
 
   constructor() {
-    this.filters = [TodoFilter.All, TodoFilter.Active, TodoFilter.Done];
+    this.filters = [TodoFilter.All, TodoFilter.Active, TodoFilter.Completed];
     this.filterChange = new EventEmitter<TodoFilter>();
   }
 

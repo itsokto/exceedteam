@@ -1,7 +1,7 @@
 export enum TodoFilter {
   All,
   Active,
-  Done,
+  Completed,
 }
 
 export class Todo {
