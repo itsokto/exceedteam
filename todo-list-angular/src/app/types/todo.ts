@@ -5,11 +5,14 @@ export enum TodoFilter {
 }
 
 export class Todo {
-  text: string;
   isDone: boolean;
+  _id: string;
+  title: string;
+  createdAt: Date;
+  updatedAt: Date;
 
-  constructor(text: string) {
-    this.text = text;
+  constructor(title: string) {
+    this.title = title;
     this.isDone = false;
   }
 }

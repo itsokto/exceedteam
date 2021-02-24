@@ -14,7 +14,7 @@
     <input
       type="text"
       class="todo__checkbox__label"
-      [(ngModel)]="todo.text"
+      [(ngModel)]="todo.title"
       [readonly]="isReadonly"
       (dblclick)="toggleRename()"
       (keyup.enter)="toggleRename()"
