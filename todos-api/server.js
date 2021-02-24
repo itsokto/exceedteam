@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const db = require("./app/models");
+const todoRouter = require("./app/routes/todo.routes");
 
 const app = express();
 
@@ -17,12 +18,7 @@ app.use(bodyParser.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// simple route
-// app.get("/", (req, res) => {
-//   res.json({ message: "Welcome to bezkoder application." });
-// });
-
-require("./app/routes/todo.routes")(app);
+app.use("/api/todos", todoRouter());
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

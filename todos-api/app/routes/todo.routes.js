@@ -1,7 +1,7 @@
-module.exports = (app) => {
+module.exports = () => {
   const Todos = require("../controllers/todo.controller.js");
 
-  var router = require("express").Router();
+  const router = require("express").Router();
 
   // Create a new Todo
   router.post("/", Todos.create);
@@ -21,5 +21,5 @@ module.exports = (app) => {
   // Delete a Completed Todo
   router.delete("/", Todos.deleteCompleted);
 
-  app.use("/api/todos", router);
+  return router;
 };
