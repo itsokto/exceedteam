@@ -2,7 +2,7 @@
   $self: &;
   display: grid;
   align-items: center;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: 1fr min-content;
   column-gap: 0.5em;
   padding: 0 8px;
   height: 3rem;
@@ -43,7 +43,7 @@
   align-items: center;
   font-size: 1.5rem;
 
-  input {
+  input[type="checkbox"] {
     display: none;
     &:checked + .todo__checkbox__control {
       border-color: aquamarine;
@@ -76,6 +76,8 @@
   }
 
   &__label {
+    outline: none;
+    border: none;
     color: rgb(0, 0, 0, 0.7);
     font-size: inherit;
   }

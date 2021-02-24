@@ -1,9 +1,6 @@
 <div class="todo__item">
   <label class="todo__checkbox">
-    <input
-      type="checkbox"
-      [(ngModel)]="todo.isDone"
-    />
+    <input type="checkbox" [(ngModel)]="todo.isDone" />
     <span class="todo__checkbox__control">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
         <path
@@ -14,7 +11,14 @@
         />
       </svg>
     </span>
-    <span class="todo__checkbox__label">{{ todo.text }}</span>
+    <input
+      type="text"
+      class="todo__checkbox__label"
+      [(ngModel)]="todo.text"
+      [readonly]="isReadonly"
+      (dblclick)="toggleRename()"
+      (keyup.enter)="toggleRename()"
+    />
   </label>
   <div class="todo__item__button" (click)="remove()">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 409.806 409.806">

@@ -11,6 +11,8 @@ import { Todo } from '../types/todo';
 export class TodoComponent implements OnInit {
   @Input() todo: Todo;
 
+  isReadonly: boolean = true;
+
   private dataService: TodosDataService;
 
   constructor(dataService: TodosDataService) {
@@ -21,5 +23,9 @@ export class TodoComponent implements OnInit {
 
   remove(): void {
     this.dataService.remove(this.todo);
+  }
+
+  toggleRename(): void {
+    this.isReadonly = !this.isReadonly;
   }
 }
