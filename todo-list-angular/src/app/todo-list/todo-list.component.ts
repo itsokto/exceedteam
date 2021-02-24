@@ -8,14 +8,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./todo-list.component.scss'],
 })
 export class TodoListComponent implements OnInit {
-  private dataService: TodosDataService;
-
   filter: TodoFilter;
   todoText: string;
   todos: Todo[];
 
-  constructor(dataService: TodosDataService) {
-    this.dataService = dataService;
+  constructor(private dataService: TodosDataService) {
     this.filter = TodoFilter.All;
   }
 

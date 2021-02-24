@@ -13,11 +13,7 @@ export class TodoComponent implements OnInit {
 
   isReadonly: boolean = true;
 
-  private dataService: TodosDataService;
-
-  constructor(dataService: TodosDataService) {
-    this.dataService = dataService;
-  }
+  constructor(private dataService: TodosDataService) {}
 
   ngOnInit(): void {}
 
