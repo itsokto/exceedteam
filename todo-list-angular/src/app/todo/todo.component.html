@@ -1,6 +1,6 @@
 <div class="todo__item">
   <label class="todo__checkbox">
-    <input type="checkbox" [(ngModel)]="todo.isDone" />
+    <input type="checkbox" [(ngModel)]="todo.isDone" (change)="onChange()" />
     <span class="todo__checkbox__control">
       <svg>
         <use xlink:href="/assets/svg/check.svg#check"></use>
@@ -15,9 +15,10 @@
       (keyup.enter)="toggleRename(false)"
       (focusout)="toggleRename(false)"
       (mousedown)="preventSelection($event)"
+      (change)="onChange()"
     />
   </label>
-  <div class="todo__item__button" (click)="remove()">
+  <div class="todo__item__button" (click)="onClick()">
     <svg>
       <use xlink:href="/assets/svg/remove.svg#remove"></use>
     </svg>

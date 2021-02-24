@@ -6,10 +6,8 @@ export enum TodoFilter {
 
 export class Todo {
   isDone: boolean;
-  _id: string;
+  id: string;
   title: string;
-  createdAt: Date;
-  updatedAt: Date;
 
   constructor(title: string) {
     this.title = title;

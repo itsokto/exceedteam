@@ -26,7 +26,11 @@
   </div>
 
   <div class="todo__list" *ngFor="let todo of todos">
-    <app-todo *ngIf="isTodoVisible(todo)" [todo]="todo"></app-todo>
+    <app-todo
+      *ngIf="isTodoVisible(todo)"
+      [todo]="todo"
+      (remove)="onRemove($event)"
+    ></app-todo>
   </div>
 
   <div *ngIf="todos.length > 0" class="todo__footer">

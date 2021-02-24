@@ -8,16 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./todo-list.component.scss'],
 })
 export class TodoListComponent implements OnInit {
-  filter: TodoFilter;
+  filter: TodoFilter = TodoFilter.All;
   todoText: string;
-  todos: Todo[];
+  todos: Todo[] = [];
 
-  constructor(private dataService: TodosDataService) {
-    this.filter = TodoFilter.All;
-  }
+  constructor(private dataService: TodosDataService) {}
 
   ngOnInit(): void {
-    this.todos = this.dataService.get();
+    this.dataService.get().subscribe((data) => (this.todos = data));
   }
 
   get activeTodosCount(): string {
@@ -40,17 +38,32 @@ export class TodoListComponent implements OnInit {
   }
 
   add(): void {
-    this.dataService.add(this.todoText);
+    this.dataService
+      .create(this.todoText)
+      .subscribe((data) => this.todos.push(data));
+
     this.todoText = '';
   }
 
   clearCompleted(): void {
     this.dataService.clearCompleted();
+
+    this.todos = this.todos.filter((todo) => !todo.isDone);
   }
 
   toggleAll(toggle: boolean): void {
     this.todos.forEach((todo) => {
       todo.isDone = toggle;
+
+      this.dataService.update(todo).subscribe();
     });
+  }
+
+  onRemove(todo: Todo): void {
+    const index = this.todos.indexOf(todo);
+
+    if (index >= 0) {
+      this.todos.splice(index, 1);
+    }
   }
 }

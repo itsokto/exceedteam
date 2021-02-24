@@ -1,6 +1,6 @@
 import { TodosDataService } from '../services/todos-data.service';
-import { Input } from '@angular/core';
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Todo } from '../types/todo';
 
 @Component({
@@ -11,15 +11,15 @@ import { Todo } from '../types/todo';
 export class TodoComponent implements OnInit {
   @Input() todo: Todo;
 
+  @Output() remove: EventEmitter<Todo>;
+
   isReadonly: boolean = true;
 
-  constructor(private dataService: TodosDataService) {}
+  constructor(private dataService: TodosDataService) {
+    this.remove = new EventEmitter<Todo>();
+  }
 
   ngOnInit(): void {}
-
-  remove(): void {
-    this.dataService.remove(this.todo);
-  }
 
   toggleRename(toggle: boolean): void {
     if (this.todo.title === '') return;
@@ -30,5 +30,14 @@ export class TodoComponent implements OnInit {
     if (event.detail > 1 && this.isReadonly) {
       event.preventDefault();
     }
+  }
+
+  onChange(): void {
+    this.dataService.update(this.todo).subscribe();
+  }
+
+  onClick(): void {
+    this.dataService.remove(this.todo).subscribe();
+    this.remove.emit(this.todo);
   }
 }
