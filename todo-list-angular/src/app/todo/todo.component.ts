@@ -21,7 +21,7 @@ export class TodoComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  toggleRename(toggle: boolean): void {
+  toggleReadonly(toggle: boolean): void {
     if (this.todo.title === '') return;
     this.isReadonly = !toggle;
   }
