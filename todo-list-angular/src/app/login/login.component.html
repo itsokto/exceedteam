@@ -1,0 +1,18 @@
+<div class="form-container">
+  <form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <label class="form__input">
+      <input type="text" formControlName="name" placeholder="Name" />
+    </label>
+    <label class="form__input">
+      <input type="text" formControlName="password" placeholder="Password" />
+    </label>
+
+    <button class="form__button" type="submit" [disabled]="!loginForm.valid">
+      Login
+    </button>
+
+    <a id="register" routerLink="/register" class="footer-text">
+      Don't have an account?
+    </a>
+  </form>
+</div>
