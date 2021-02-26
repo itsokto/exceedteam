@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const db = require("./app/models");
 const todoRouter = require("./app/routes/todo.routes");
+const authRouter = require("./app/routes/auth.routes");
 
 const app = express();
 
@@ -19,6 +20,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/api/todos", todoRouter());
+
+app.use("/api/auth", authRouter());
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
