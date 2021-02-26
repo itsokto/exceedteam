@@ -1,60 +1,59 @@
+const mongoose = require("mongoose");
 const db = require("../models");
 const Todo = db.todos;
+const User = db.users;
 
 // Create and Save a new Todo
-exports.create = (req, res) => {
+exports.create = async (req, res) => {
   if (!req.body.title) {
-    res.status(400).send({ message: "Content can not be empty!" });
+    res.status(400).send({ message: "Title can not be empty!" });
     return;
   }
 
   const todo = new Todo({
     title: req.body.title,
     isDone: false,
+    user: req.user.id,
   });
 
-  todo
-    .save(todo)
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: err.message || "Some error occurred while creating the Todo.",
-      });
-    });
+  await todo.save();
+
+  const user = await User.findById(req.user.id);
+
+  user.todos.push(todo);
+
+  await user.save();
+
+  res.send(todo);
 };
 
 // Retrieve all Todos from the database.
-exports.findAll = (req, res) => {
-  Todo.find({})
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: err.message || "Some error occurred while retrieving Todos.",
-      });
-    });
+exports.findAll = async (req, res) => {
+  const todos = await Todo.find({
+    user: mongoose.Types.ObjectId(req.user.id),
+  });
+
+  res.send(todos);
 };
 
 // Find a single Todo with an id
-exports.findById = (req, res) => {
+exports.findById = async (req, res) => {
   const id = req.params.id;
 
-  Todo.findById(id)
-    .then((data) => {
-      if (!data)
-        res.status(404).send({ message: "Not found Todo with id " + id });
-      else res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({ message: "Error retrieving Todo with id=" + id });
-    });
+  const todo = await Todo.findOne({
+    _id: id,
+    user: mongoose.Types.ObjectId(req.user.id),
+  });
+
+  if (!todo) {
+    res.status(404).send({ message: "Not found Todo with id " + id });
+  } else {
+    res.send(todo);
+  }
 };
 
 // Update a Todo by the id in the request
-exports.update = (req, res) => {
+exports.update = async (req, res) => {
   if (!req.body) {
     return res.status(400).send({
       message: "Data to update can not be empty!",
@@ -63,70 +62,57 @@ exports.update = (req, res) => {
 
   const id = req.params.id;
 
-  Todo.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
-    .then((data) => {
-      if (!data) {
-        res.status(404).send({
-          message: `Cannot update Todo with id=${id}. Maybe Todo was not found!`,
-        });
-      } else res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: "Error updating Todo with id=" + id,
-      });
+  const todo = await Todo.findOneAndUpdate(
+    { _id: id, user: mongoose.Types.ObjectId(req.user.id) },
+    req.body
+  );
+
+  if (!todo) {
+    res.status(404).send({
+      message: `Cannot update Todo with id=${id}. Maybe Todo was not found!`,
     });
+  } else {
+    res.send(todo);
+  }
 };
 
 // Delete a Todo with the specified id in the request
-exports.delete = (req, res) => {
+exports.delete = async (req, res) => {
   const id = req.params.id;
 
-  Todo.findByIdAndRemove(id)
-    .then((data) => {
-      if (!data) {
-        res.status(404).send({
-          message: `Cannot delete Todo with id=${id}. Maybe Todo was not found!`,
-        });
-      } else {
-        res.send(data);
-      }
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: "Could not delete Todo with id=" + id,
-      });
+  const todo = await Todo.findOneAndDelete({
+    _id: id,
+    user: mongoose.Types.ObjectId(req.user.id),
+  });
+
+  if (!todo) {
+    res.status(404).send({
+      message: `Cannot delete Todo with id=${id}. Maybe Todo was not found!`,
     });
+  } else {
+    res.send(todo);
+  }
 };
 
 // Delete completed Todos from the database.
-exports.deleteCompleted = (req, res) => {
-  Todo.deleteMany({ isDone: true })
-    .then((data) => {
-      res.send({
-        message: `${data.deletedCount} Todos were deleted successfully!`,
-      });
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while removing completed Todos.",
-      });
-    });
+exports.deleteCompleted = async (req, res) => {
+  const result = await Todo.deleteMany(
+    { user: mongoose.Types.ObjectId(req.user.id) },
+    { isDone: true }
+  );
+
+  res.send({
+    message: `${result.deletedCount} Todos were deleted successfully!`,
+  });
 };
 
-exports.toggleAll = (req, res) => {
-  const toggle = req.body.toggle;
+exports.toggleAll = async (req, res) => {
+  const result = await Todo.updateMany(
+    { user: mongoose.Types.ObjectId(req.user.id) },
+    req.body
+  );
 
-  Todo.updateMany({ isDone: toggle })
-    .then((data) => {
-      res.send({
-        message: `${data.nModified} Todos were updated successfully!`,
-      });
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: err.message || "Some error occurred while updating Todos.",
-      });
-    });
+  res.send({
+    message: `${result.nModified} Todos were updated successfully!`,
+  });
 };
