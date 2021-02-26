@@ -1,0 +1,64 @@
+.form-container {
+  max-width: 500px;
+  background: white;
+  margin: auto;
+  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.15);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1em;
+  padding: 8px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), 0 10px 0 -5px #fff,
+    0 10px 1px -4px rgba(0, 0, 0, 0.15), 0 20px 0 -10px #fff,
+    0 20px 1px -9px rgba(0, 0, 0, 0.15);
+
+  &__input {
+    display: flex;
+    flex-direction: column;
+    color: rgb(0, 0, 0, 0.7);
+    input {
+      outline: none;
+      border: none;
+      border-bottom: 1px solid #e6e6e6;
+      font-size: inherit;
+      color: inherit;
+      transition: all 0.3s;
+      padding: 8px;
+      &::placeholder {
+        font-style: italic;
+        color: #e6e6e6;
+      }
+      &:hover,
+      &:focus {
+        border-color: rgb(0, 0, 0, 0.7);
+      }
+    }
+  }
+  &__button {
+    cursor: pointer;
+    outline: none;
+    border: none;
+    padding: 8px;
+    background: #ead8d8;
+    color: #fff;
+    transition: all 0.3s;
+    font-size: inherit;
+    font-weight: bold;
+    &:hover {
+      background: #f5f5f5;
+      color: rgb(0, 0, 0, 0.7);
+    }
+  }
+}
+
+#login {
+  justify-self: right;
+  text-align: right;
+  text-decoration: none;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+}
