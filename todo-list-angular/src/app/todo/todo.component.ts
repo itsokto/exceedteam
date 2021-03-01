@@ -1,4 +1,4 @@
-import { TodosDataService } from '../services/todos-data.service';
+import { TodosService } from '../services/todos.service';
 import { Input, Output, EventEmitter } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { Todo } from '../types/todo';
@@ -15,7 +15,7 @@ export class TodoComponent implements OnInit {
 
   isReadonly: boolean = true;
 
-  constructor(private dataService: TodosDataService) {
+  constructor(private todosService: TodosService) {
     this.remove = new EventEmitter<Todo>();
   }
 
@@ -33,11 +33,11 @@ export class TodoComponent implements OnInit {
   }
 
   onChange(): void {
-    this.dataService.update(this.todo).subscribe();
+    this.todosService.update(this.todo).subscribe();
   }
 
   onClick(): void {
-    this.dataService.remove(this.todo).subscribe();
+    this.todosService.remove(this.todo).subscribe();
     this.remove.emit(this.todo);
   }
 }

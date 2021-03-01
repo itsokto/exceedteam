@@ -1,4 +1,4 @@
-import { TodosDataService } from '../services/todos-data.service';
+import { TodosService } from '../services/todos.service';
 import { Todo, TodoFilter } from '../types/todo';
 import { Component, OnInit } from '@angular/core';
 
@@ -12,10 +12,10 @@ export class TodoListComponent implements OnInit {
   todoText: string;
   todos: Todo[] = [];
 
-  constructor(private dataService: TodosDataService) {}
+  constructor(private todosService: TodosService) {}
 
   ngOnInit(): void {
-    this.dataService.get().subscribe((data) => (this.todos = data));
+    this.todosService.get().subscribe((data) => (this.todos = data));
   }
 
   get activeTodosCount(): string {
@@ -38,7 +38,7 @@ export class TodoListComponent implements OnInit {
   }
 
   add(): void {
-    this.dataService
+    this.todosService
       .create(this.todoText)
       .subscribe((data) => this.todos.push(data));
 
@@ -46,7 +46,7 @@ export class TodoListComponent implements OnInit {
   }
 
   clearCompleted(): void {
-    this.dataService.clearCompleted().subscribe();
+    this.todosService.clearCompleted().subscribe();
 
     this.todos = this.todos.filter((todo) => !todo.isDone);
   }
@@ -56,7 +56,7 @@ export class TodoListComponent implements OnInit {
       todo.isDone = toggle;
     });
 
-    this.dataService.toggleAll(toggle).subscribe();
+    this.todosService.toggleAll(toggle).subscribe();
   }
 
   onRemove(todo: Todo): void {

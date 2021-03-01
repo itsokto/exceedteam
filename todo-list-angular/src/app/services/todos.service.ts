@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class TodosDataService {
+export class TodosService {
   private baseUrl = 'http://localhost:8080/api/todos';
 
   constructor(private httpClient: HttpClient) {}
