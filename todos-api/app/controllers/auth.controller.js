@@ -66,19 +66,19 @@ exports.login = async (req, res) => {
 
 // Refresh a Token
 exports.refresh = async (req, res) => {
-  const user = await User.findById(req.user.id);
+  jwtTokenService.verify(req.body.refreshToken, async function (err, decoded) {
+    if (err)
+      return res.status(403).send({ message: "Token is expired or invalid." });
 
-  if (!user) {
-    res.status(400).send({ message: "User not found!" });
-    return;
-  }
+    const user = await User.findById(decoded.id);
 
-  const token = jwtTokenService.sign(user);
+    const token = jwtTokenService.sign(user);
 
-  const refreshToken = jwtTokenService.signRefresh(user);
+    const refreshToken = jwtTokenService.signRefresh(user);
 
-  res.send({
-    accessToken: token,
-    refreshToken: refreshToken,
+    res.send({
+      accessToken: token,
+      refreshToken: refreshToken,
+    });
   });
 };

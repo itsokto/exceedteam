@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const jwtConfig = require("../config/jwt.config");
 
 function verify(token, callback) {
-  jwt.verify(token, jwtConfig.secret, callback);
+  return jwt.verify(token, jwtConfig.secret, callback);
 }
 
 function sign(user) {
