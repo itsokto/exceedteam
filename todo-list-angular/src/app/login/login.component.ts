@@ -1,6 +1,7 @@
 import { AuthService } from './../services/auth.service';
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private router: Router) {
     this.loginForm = new FormGroup({
       name: new FormControl(''),
       password: new FormControl(''),
@@ -23,6 +24,8 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     const { name, password } = this.loginForm.value;
 
-    this.authService.login(name, password).subscribe();
+    this.authService
+      .login(name, password)
+      .subscribe(() => this.router.navigate(['']));
   }
 }

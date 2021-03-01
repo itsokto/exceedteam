@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -11,7 +12,7 @@ import { AuthService } from '../services/auth.service';
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private router: Router) {
     this.registerForm = new FormGroup({
       name: new FormControl(''),
       password: new FormControl(''),
@@ -23,6 +24,8 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     const { name, password } = this.registerForm.value;
 
-    this.authService.register(name, password).subscribe();
+    this.authService
+      .register(name, password)
+      .subscribe(() => this.router.navigate(['']));
   }
 }
