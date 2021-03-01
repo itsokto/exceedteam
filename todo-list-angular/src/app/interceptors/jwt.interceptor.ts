@@ -25,7 +25,7 @@ export class JwtInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     if (this.authService.isAuthorized()) {
-      const auth = this.authService.getAuth();
+      const auth = this.authService.auth;
       request = this.addToken(request, auth.accessToken);
     }
 

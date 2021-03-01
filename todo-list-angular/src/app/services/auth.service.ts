@@ -1,8 +1,8 @@
 import { AuthResponse } from './../types/auth.response';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { mapTo, tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { mapTo, tap, filter } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +10,21 @@ import { mapTo, tap } from 'rxjs/operators';
 export class AuthService {
   private baseUrl = 'http://localhost:8080/api/auth';
 
-  constructor(private httpClient: HttpClient) {}
+  private authSubject = new BehaviorSubject<AuthResponse>(null);
+
+  get auth(): AuthResponse {
+    return this.authSubject.getValue();
+  }
+
+  constructor(private httpClient: HttpClient) {
+    this.authSubject
+      .pipe(filter((value) => value != null))
+      .subscribe(() => this.saveAuth());
+
+    const auth = this.getAuth();
+
+    this.authSubject.next(auth);
+  }
 
   login(name: string, password: string): Observable<boolean> {
     const url = `${this.baseUrl}/login`;
@@ -21,7 +35,7 @@ export class AuthService {
         password: password,
       })
       .pipe(
-        tap((auth) => this.saveAuth(auth)),
+        tap((auth) => this.authSubject.next(auth)),
         mapTo(true)
       );
   }
@@ -35,7 +49,7 @@ export class AuthService {
         password: password,
       })
       .pipe(
-        tap((auth) => this.saveAuth(auth)),
+        tap((auth) => this.authSubject.next(auth)),
         mapTo(true)
       );
   }
@@ -48,10 +62,18 @@ export class AuthService {
       .post<AuthResponse>(url, {
         refreshToken: refreshToken,
       })
-      .pipe(tap((auth) => this.saveAuth(auth)));
+      .pipe(tap((auth) => this.authSubject.next(auth)));
   }
 
-  getAuth(): AuthResponse {
+  logout(): void {
+    this.clearAuth();
+  }
+
+  isAuthorized(): boolean {
+    return this.auth?.accessToken && this.auth?.refreshToken ? true : false;
+  }
+
+  private getAuth(): AuthResponse {
     try {
       const auth = JSON.parse(localStorage.getItem('auth'));
 
@@ -62,23 +84,14 @@ export class AuthService {
     }
   }
 
-  logout(): void {
-    this.clearAuth();
-  }
-
-  isAuthorized(): boolean {
-    const auth = this.getAuth();
-
-    return auth?.accessToken && auth?.refreshToken ? true : false;
-  }
-
-  private saveAuth(auth: AuthResponse): void {
-    const authStr = JSON.stringify(auth);
+  private saveAuth(): void {
+    const authStr = JSON.stringify(this.auth);
 
     localStorage.setItem('auth', authStr);
   }
 
   private clearAuth(): void {
+    this.authSubject.next(null);
     localStorage.removeItem('auth');
   }
 }
