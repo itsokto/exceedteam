@@ -1,3 +1,5 @@
+@import "vars";
+
 #clear-completed {
   user-select: none;
   cursor: pointer;
@@ -13,7 +15,7 @@
   max-width: 600px;
   height: auto;
   background: #fff;
-  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 20px 30px $dark-15;
   margin: auto;
 }
 
@@ -21,7 +23,7 @@
   display: flex;
   align-items: center;
   column-gap: 0.5em;
-  border-bottom: 1px solid #e6e6e6;
+  border-bottom: 1px solid $dark-10;
   padding: 0 8px;
   height: 3rem;
   font-size: 1.5rem;
@@ -33,13 +35,13 @@
   cursor: pointer;
   align-items: center;
   font-size: 1.5rem;
-  color: lightgray;
+  color: $dark-15;
 
   input {
     display: none;
     &:checked + .todo__header__checkbox__control {
       svg {
-        color: rgb(0, 0, 0, 0.75);
+        color: $dark-70;
       }
     }
   }
@@ -53,7 +55,7 @@
     svg {
       width: 0.7em;
       height: 0.7em;
-      color: lightgray;
+      color: $dark-15;
       transition: all 0.1s;
     }
   }
@@ -64,10 +66,10 @@
   border: none;
   width: 100%;
   font-size: inherit;
-  color: rgb(0, 0, 0, 0.7);
+  color: $dark-70;
   &::placeholder {
     font-style: italic;
-    color: #e6e6e6;
+    color: $dark-15;
   }
 }
 
@@ -77,9 +79,6 @@
   grid-template-columns: 1fr 1fr 1fr;
   padding: 12px;
   align-items: center;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), 0 10px 0 -5px #fff,
-    0 10px 1px -4px rgba(0, 0, 0, 0.15), 0 20px 0 -10px #fff,
-    0 20px 1px -9px rgba(0, 0, 0, 0.15);
 }
 
 .todo__list {

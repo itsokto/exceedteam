@@ -1,8 +1,10 @@
+@import "vars";
+
 .form-container {
   max-width: 500px;
   background: white;
   margin: auto;
-  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 20px 30px $dark-15;
 }
 
 .form {
@@ -10,32 +12,29 @@
   flex-direction: column;
   row-gap: 1em;
   padding: 8px;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), 0 10px 0 -5px #fff,
-    0 10px 1px -4px rgba(0, 0, 0, 0.15), 0 20px 0 -10px #fff,
-    0 20px 1px -9px rgba(0, 0, 0, 0.15);
 
   &__input {
     display: flex;
     flex-direction: column;
-    color: rgb(0, 0, 0, 0.7);
+    color: $dark-70;
     input {
       outline: none;
       border: none;
-      border-bottom: 1px solid #e6e6e6;
+      border-bottom: 1px solid $dark-10;
       font-size: inherit;
       color: inherit;
       transition: all 0.3s;
       padding: 8px;
       &::placeholder {
         font-style: italic;
-        color: #e6e6e6;
+        color: $dark-15;
       }
       &.ng-invalid {
-        border-color: #ead8d8;
+        border-color: $primary-color;
       }
       &:hover,
       &:focus {
-        border-color: rgb(0, 0, 0, 0.7);
+        border-color: $dark-70;
       }
     }
   }
@@ -44,14 +43,14 @@
     outline: none;
     border: none;
     padding: 8px;
-    background: #ead8d8;
+    background: $primary-color;
     color: #fff;
     transition: all 0.3s;
     font-size: inherit;
     font-weight: bold;
     &:hover {
-      background: #f5f5f5;
-      color: rgb(0, 0, 0, 0.7);
+      background: $background-color;
+      color: $dark-70;
     }
   }
 }
