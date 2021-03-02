@@ -17,16 +17,12 @@ export class AuthService {
   }
 
   constructor(private httpClient: HttpClient) {
-    this.authSubject
-      .pipe(filter((value) => value != null))
-      .subscribe(() => this.saveAuth());
-
     const auth = this.getAuth();
 
     this.authSubject.next(auth);
   }
 
-  login(name: string, password: string): Observable<boolean> {
+  login(name: string, password: string): Observable<AuthResponse> {
     const url = `${this.baseUrl}/login`;
 
     return this.httpClient
@@ -34,10 +30,7 @@ export class AuthService {
         name: name,
         password: password,
       })
-      .pipe(
-        tap((auth) => this.authSubject.next(auth)),
-        mapTo(true)
-      );
+      .pipe(tap((auth) => this.authSubject.next(auth)));
   }
 
   register(name: string, password: string): Observable<boolean> {
@@ -84,8 +77,8 @@ export class AuthService {
     }
   }
 
-  private saveAuth(): void {
-    const authStr = JSON.stringify(this.auth);
+  saveAuth(auth: AuthResponse): void {
+    const authStr = JSON.stringify(auth);
 
     localStorage.setItem('auth', authStr);
   }
