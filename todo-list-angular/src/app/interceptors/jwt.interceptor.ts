@@ -1,5 +1,5 @@
-import { LogOut } from './../store/actions/auth.actions';
-import { AuthService } from './../services/auth.service';
+import { IAuthState } from './../store/states/auth.state';
+import { LogOut, Refresh } from './../store/actions/auth.actions';
 import { Injectable } from '@angular/core';
 import {
   HttpRequest,
@@ -7,35 +7,27 @@ import {
   HttpEvent,
   HttpInterceptor,
 } from '@angular/common/http';
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { AuthResponse } from '../types/auth.response';
-import { catchError, filter, switchMap, take, tap } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { catchError, skip, switchMap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { AppState, selectAuthState } from '../store/states/app.states';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
-  state: Observable<any>;
+  state$: Observable<any>;
+  state: IAuthState;
 
-  constructor(
-    private authService: AuthService,
-    private store: Store<AppState>
-  ) {
-    this.state = this.store.select(selectAuthState);
+  constructor(private store: Store<AppState>) {
+    this.state$ = this.store.select(selectAuthState);
+    this.state$.subscribe((state: IAuthState) => (this.state = state));
   }
-
-  private isRefreshing = false;
-  private refreshTokenSubject: BehaviorSubject<AuthResponse> = new BehaviorSubject<AuthResponse>(
-    null
-  );
 
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    if (this.authService.isAuthorized()) {
-      const auth = this.authService.auth;
-      request = this.addToken(request, auth.accessToken);
+    if (this.state.isAuthenticated) {
+      request = this.addToken(request, this.state.auth.accessToken);
     }
 
     return next.handle(request).pipe(
@@ -64,31 +56,19 @@ export class JwtInterceptor implements HttpInterceptor {
   }
 
   private handle401Error(request: HttpRequest<any>, next: HttpHandler) {
-    if (!this.isRefreshing) {
-      this.isRefreshing = true;
-      this.refreshTokenSubject.next(null);
+    this.store.dispatch(
+      new Refresh({ refreshToken: this.state.auth.refreshToken })
+    );
 
-      return this.authService.refresh().pipe(
-        switchMap((auth: AuthResponse) => {
-          this.isRefreshing = false;
-          this.refreshTokenSubject.next(auth);
-          return next.handle(this.addToken(request, auth.accessToken));
-        })
-      );
-    } else {
-      return this.refreshTokenSubject.pipe(
-        filter((auth) => auth != null),
-        take(1),
-        switchMap((auth) =>
-          next.handle(this.addToken(request, auth.accessToken))
-        )
-      );
-    }
+    return this.state$.pipe(
+      skip(1),
+      switchMap((state: IAuthState) => {
+        return next.handle(this.addToken(request, state.auth.accessToken));
+      })
+    );
   }
 
   private handle403Error(request: HttpRequest<any>, next: HttpHandler) {
-    this.isRefreshing = false;
-
     this.store.dispatch(new LogOut());
 
     return next.handle(request);

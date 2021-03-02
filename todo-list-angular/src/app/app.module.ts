@@ -13,7 +13,15 @@ import { RegisterComponent } from './register/register.component';
 import { JwtInterceptor } from './interceptors';
 import { AuthEffects } from './store/effects/auth.effects';
 import { reducers } from './store/states/app.states';
-import { StoreModule } from '@ngrx/store';
+import { ActionReducer, MetaReducer, StoreModule } from '@ngrx/store';
+import { localStorageSync } from 'ngrx-store-localstorage';
+
+export function localStorageSyncReducer(
+  reducer: ActionReducer<any>
+): ActionReducer<any> {
+  return localStorageSync({ keys: ['auth'], rehydrate: true })(reducer);
+}
+const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
 
 @NgModule({
   declarations: [
@@ -30,7 +38,7 @@ import { StoreModule } from '@ngrx/store';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    StoreModule.forRoot(reducers, {}),
+    StoreModule.forRoot(reducers, { metaReducers }),
     EffectsModule.forRoot([AuthEffects]),
   ],
   providers: [
