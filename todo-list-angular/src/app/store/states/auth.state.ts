@@ -8,7 +8,7 @@ export interface IAuthState {
   errorMessage?: string;
 }
 
-export const initialState: IAuthState = {
+export const initialAuthState: IAuthState = {
   isAuthenticated: false,
   auth: null,
   errorMessage: null,

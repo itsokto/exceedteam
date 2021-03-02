@@ -1,3 +1,4 @@
+import { LogOut } from './../actions/auth.actions';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
@@ -67,7 +68,7 @@ export class AuthEffects {
     }
   );
 
-  register = createEffect(() =>
+  Register = createEffect(() =>
     this.actions.pipe(
       ofType(AuthActionTypes.REGISTER),
       map((action: Register) => action.payload),
@@ -106,6 +107,20 @@ export class AuthEffects {
         ofType(AuthActionTypes.LOGIN_SUCCESS, AuthActionTypes.REGISTER_SUCCESS),
         tap((result) => {
           console.log(result);
+        })
+      ),
+    {
+      dispatch: false,
+    }
+  );
+
+  LogOut = createEffect(
+    () =>
+      this.actions.pipe(
+        ofType(AuthActionTypes.LOGOUT),
+        tap(() => {
+          this.authService.logout();
+          this.router.navigate(['/login']);
         })
       ),
     {

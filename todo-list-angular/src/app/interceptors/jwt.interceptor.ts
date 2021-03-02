@@ -1,3 +1,4 @@
+import { LogOut } from './../store/actions/auth.actions';
 import { AuthService } from './../services/auth.service';
 import { Injectable } from '@angular/core';
 import {
@@ -9,11 +10,19 @@ import {
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { AuthResponse } from '../types/auth.response';
 import { catchError, filter, switchMap, take, tap } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { AppState, selectAuthState } from '../store/states/app.states';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
-  constructor(private authService: AuthService, private router: Router) {}
+  state: Observable<any>;
+
+  constructor(
+    private authService: AuthService,
+    private store: Store<AppState>
+  ) {
+    this.state = this.store.select(selectAuthState);
+  }
 
   private isRefreshing = false;
   private refreshTokenSubject: BehaviorSubject<AuthResponse> = new BehaviorSubject<AuthResponse>(
@@ -79,8 +88,8 @@ export class JwtInterceptor implements HttpInterceptor {
 
   private handle403Error(request: HttpRequest<any>, next: HttpHandler) {
     this.isRefreshing = false;
-    this.authService.logout();
-    this.router.navigate(['/login']);
+
+    this.store.dispatch(new LogOut());
 
     return next.handle(request);
   }
