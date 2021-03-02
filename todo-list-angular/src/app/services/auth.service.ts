@@ -33,7 +33,7 @@ export class AuthService {
       .pipe(tap((auth) => this.authSubject.next(auth)));
   }
 
-  register(name: string, password: string): Observable<boolean> {
+  register(name: string, password: string): Observable<AuthResponse> {
     const url = `${this.baseUrl}/register`;
 
     return this.httpClient
@@ -41,10 +41,7 @@ export class AuthService {
         name: name,
         password: password,
       })
-      .pipe(
-        tap((auth) => this.authSubject.next(auth)),
-        mapTo(true)
-      );
+      .pipe(tap((auth) => this.authSubject.next(auth)));
   }
 
   refresh(): Observable<AuthResponse> {

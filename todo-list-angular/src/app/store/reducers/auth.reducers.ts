@@ -4,7 +4,8 @@ import { initialState } from '../states/auth.state';
 
 export function reducer(state = initialState, action: All): IAuthState {
   switch (action.type) {
-    case AuthActionTypes.LOGIN_SUCCESS: {
+    case AuthActionTypes.LOGIN_SUCCESS:
+    case AuthActionTypes.REGISTER_SUCCESS: {
       return {
         ...state,
         isAuthenticated: true,
@@ -12,7 +13,8 @@ export function reducer(state = initialState, action: All): IAuthState {
         errorMessage: null,
       };
     }
-    case AuthActionTypes.LOGIN_FAILURE: {
+    case AuthActionTypes.LOGIN_FAILURE:
+    case AuthActionTypes.REGISTER_FAILURE: {
       return {
         ...state,
         errorMessage: action.payload.errorMessage,
