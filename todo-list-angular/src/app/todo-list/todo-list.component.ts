@@ -1,6 +1,16 @@
+import { map } from 'rxjs/operators';
+import {
+  AppState,
+  selectTodos,
+  selectTodosCount,
+  selectTodosActiveCount,
+} from './../store/states/app.states';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { TodosService } from '../services/todos.service';
 import { Todo, TodoFilter } from '../types/todo';
 import { Component, OnInit } from '@angular/core';
+import { TodoGet } from '../store/actions/todo.actions';
 
 @Component({
   selector: 'app-todo-list',
@@ -11,17 +21,27 @@ export class TodoListComponent implements OnInit {
   filter: TodoFilter = TodoFilter.All;
   todoText: string;
   todos: Todo[] = [];
+  todos$: Observable<Todo[]>;
+  count$: Observable<number>;
+  countActive$: Observable<number>;
+  countActiveText$: Observable<string>;
 
-  constructor(private todosService: TodosService) {}
-
-  ngOnInit(): void {
-    this.todosService.get().subscribe((data) => (this.todos = data));
+  constructor(
+    private todosService: TodosService,
+    private store: Store<AppState>
+  ) {
+    this.todos$ = this.store.select(selectTodos);
+    this.count$ = this.store.select(selectTodosCount);
+    this.countActive$ = this.store.select(selectTodosActiveCount);
+    this.countActiveText$ = this.countActive$.pipe(
+      map((length) =>
+        length == 1 ? `${length} item left` : `${length} items left`
+      )
+    );
   }
 
-  get activeTodosCount(): string {
-    const length = this.todos.filter((todo) => !todo.isDone).length;
-
-    return length == 1 ? `${length} item left` : `${length} items left`;
+  ngOnInit(): void {
+    this.store.dispatch(new TodoGet());
   }
 
   get isTogglerChecked(): boolean {

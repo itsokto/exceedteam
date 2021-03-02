@@ -1,3 +1,4 @@
+import { TodoEffects } from './store/effects/todo.effects';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -39,7 +40,7 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     ReactiveFormsModule,
     HttpClientModule,
     StoreModule.forRoot(reducers, { metaReducers }),
-    EffectsModule.forRoot([AuthEffects]),
+    EffectsModule.forRoot([AuthEffects, TodoEffects]),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

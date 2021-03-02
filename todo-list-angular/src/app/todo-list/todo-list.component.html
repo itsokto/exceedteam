@@ -1,7 +1,7 @@
 <div class="todo">
   <div class="todo__header">
     <label
-      [ngStyle]="{ opacity: todos.length > 0 ? 1 : 0 }"
+      [ngStyle]="{ opacity: (count$ | async) > 0 ? 1 : 0 }"
       class="todo__header__checkbox"
     >
       <input
@@ -25,7 +25,7 @@
     />
   </div>
 
-  <div class="todo__list" *ngFor="let todo of todos">
+  <div class="todo__list" *ngFor="let todo of todos$ | async">
     <app-todo
       *ngIf="isTodoVisible(todo)"
       [todo]="todo"
@@ -33,9 +33,9 @@
     ></app-todo>
   </div>
 
-  <div *ngIf="todos.length > 0" class="papper todo__footer">
+  <div *ngIf="(count$ | async) > 0" class="papper todo__footer">
     <p class="footer-text">
-      {{ activeTodosCount }}
+      {{ countActiveText$ | async }}
     </p>
     <app-todo-filter [(filter)]="filter"></app-todo-filter>
     <p
