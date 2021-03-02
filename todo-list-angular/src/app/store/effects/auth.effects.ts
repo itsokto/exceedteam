@@ -1,4 +1,3 @@
-import { LogOut } from './../actions/auth.actions';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
@@ -13,6 +12,9 @@ import {
   Register,
   RegisterFailure,
   RegisterSuccess,
+  Refresh,
+  RefreshSuccess,
+  RefreshFailure,
 } from '../actions/auth.actions';
 import { of } from 'rxjs';
 
@@ -44,9 +46,8 @@ export class AuthEffects {
   LogInSuccess = createEffect(
     () =>
       this.actions.pipe(
-        ofType(AuthActionTypes.LOGIN_SUCCESS, AuthActionTypes.REGISTER_SUCCESS),
+        ofType(AuthActionTypes.LOGIN_SUCCESS),
         tap((result: LogInSuccess | RegisterSuccess) => {
-          this.authService.saveAuth(result.payload);
           this.router.navigate(['']);
         })
       ),
@@ -58,7 +59,7 @@ export class AuthEffects {
   LogInFailure = createEffect(
     () =>
       this.actions.pipe(
-        ofType(AuthActionTypes.LOGIN_SUCCESS, AuthActionTypes.REGISTER_SUCCESS),
+        ofType(AuthActionTypes.LOGIN_FAILURE),
         tap((result) => {
           console.log(result);
         })
@@ -92,7 +93,6 @@ export class AuthEffects {
       this.actions.pipe(
         ofType(AuthActionTypes.REGISTER_SUCCESS),
         tap((result: LogInSuccess | RegisterSuccess) => {
-          this.authService.saveAuth(result.payload);
           this.router.navigate(['']);
         })
       ),
@@ -104,7 +104,50 @@ export class AuthEffects {
   RegisterFailure = createEffect(
     () =>
       this.actions.pipe(
-        ofType(AuthActionTypes.LOGIN_SUCCESS, AuthActionTypes.REGISTER_SUCCESS),
+        ofType(AuthActionTypes.REGISTER_FAILURE),
+        tap((result) => {
+          console.log(result);
+        })
+      ),
+    {
+      dispatch: false,
+    }
+  );
+
+  Refresh = createEffect(() =>
+    this.actions.pipe(
+      ofType(AuthActionTypes.REFRESH),
+      map((action: Refresh) => action.payload),
+      switchMap((payload) => {
+        return this.authService.refresh(payload.refreshToken).pipe(
+          map((auth) => {
+            return new RefreshSuccess(auth);
+          }),
+          catchError((error) => {
+            return of(
+              new RefreshFailure({ errorMessage: error.error.message })
+            );
+          })
+        );
+      })
+    )
+  );
+
+  RefreshSuccess = createEffect(
+    () =>
+      this.actions.pipe(
+        ofType(AuthActionTypes.REFRESH_SUCCESS),
+        tap((result: RefreshSuccess) => {})
+      ),
+    {
+      dispatch: false,
+    }
+  );
+
+  RefreshFailure = createEffect(
+    () =>
+      this.actions.pipe(
+        ofType(AuthActionTypes.REFRESH_FAILURE),
         tap((result) => {
           console.log(result);
         })

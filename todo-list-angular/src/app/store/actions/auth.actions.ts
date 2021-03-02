@@ -8,6 +8,9 @@ export enum AuthActionTypes {
   REGISTER = '[Auth] Register',
   REGISTER_SUCCESS = '[Auth] Register Success',
   REGISTER_FAILURE = '[Auth] Register Failure',
+  REFRESH = '[Auth] Refresh',
+  REFRESH_SUCCESS = '[Auth] Refresh Success',
+  REFRESH_FAILURE = '[Auth] Refresh Failure',
   LOGOUT = '[Auth] LogOut',
 }
 
@@ -41,6 +44,21 @@ export class RegisterFailure implements Action {
   constructor(public payload: any) {}
 }
 
+export class Refresh implements Action {
+  readonly type = AuthActionTypes.REFRESH;
+  constructor(public payload: any) {}
+}
+
+export class RefreshSuccess implements Action {
+  readonly type = AuthActionTypes.REFRESH_SUCCESS;
+  constructor(public payload: AuthResponse) {}
+}
+
+export class RefreshFailure implements Action {
+  readonly type = AuthActionTypes.REFRESH_FAILURE;
+  constructor(public payload: any) {}
+}
+
 export class LogOut implements Action {
   readonly type = AuthActionTypes.LOGOUT;
   constructor() {}
@@ -53,4 +71,7 @@ export type All =
   | Register
   | RegisterSuccess
   | RegisterFailure
+  | Refresh
+  | RefreshSuccess
+  | RefreshFailure
   | LogOut;
