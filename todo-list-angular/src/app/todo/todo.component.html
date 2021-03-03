@@ -1,24 +1,25 @@
 <div class="todo__item">
   <label class="todo__checkbox">
-    <input type="checkbox" [(ngModel)]="todo.isDone" (change)="onChange()" />
+    <input #state type="checkbox" [ngModel]="todo.isDone" (change)="updateState(state.checked)"/>
     <span class="todo__checkbox__control">
       <svg>
         <use xlink:href="/assets/svg/check.svg#check"></use>
       </svg>
     </span>
     <input
+      #title
       type="text"
       class="todo__checkbox__label"
-      [(ngModel)]="todo.title"
+      [ngModel]="todo.title"
       [readonly]="isReadonly"
       (dblclick)="toggleReadonly(true)"
       (keyup.enter)="toggleReadonly(false)"
       (focusout)="toggleReadonly(false)"
       (mousedown)="preventSelection($event)"
-      (change)="onChange()"
+      (change)="updateTitle(title.value)"
     />
   </label>
-  <div class="todo__item__button" (click)="onClick()">
+  <div class="todo__item__button" (click)="remove()">
     <svg>
       <use xlink:href="/assets/svg/remove.svg#remove"></use>
     </svg>

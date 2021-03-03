@@ -34,6 +34,7 @@ export const selectTodosByFilter = createSelector(
     todos.filter(
       (todo) =>
         (todo.isDone && filter === TodoFilter.Completed) ||
+        (!todo.isDone && filter === TodoFilter.Active) ||
         filter === TodoFilter.All
     )
 );

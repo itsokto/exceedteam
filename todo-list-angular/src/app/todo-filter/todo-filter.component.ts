@@ -1,5 +1,8 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { TodoFilter } from '../types/todo';
+import { AppState } from '../store/states/app.states';
+import { Store } from '@ngrx/store';
+import { TodoApplyFilter } from '../store/actions/todo.actions';
 
 @Component({
   selector: 'app-todo-filter',
@@ -7,22 +10,17 @@ import { TodoFilter } from '../types/todo';
   styleUrls: ['./todo-filter.component.scss'],
 })
 export class TodoFilterComponent implements OnInit {
-  @Input()
   filter: TodoFilter;
-  @Output()
-  filterChange: EventEmitter<TodoFilter>;
-
   filters: TodoFilter[];
 
-  constructor() {
+  constructor(private store: Store<AppState>) {
     this.filters = [TodoFilter.All, TodoFilter.Active, TodoFilter.Completed];
-    this.filterChange = new EventEmitter<TodoFilter>();
   }
 
   ngOnInit(): void {}
 
-  onChange() {
-    this.filterChange.emit(this.filter);
+  onChange(): void {
+    this.store.dispatch(new TodoApplyFilter(this.filter));
   }
 
   getText(filter: TodoFilter): string {

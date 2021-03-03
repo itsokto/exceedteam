@@ -1,28 +1,26 @@
-import { TodosService } from '../services/todos.service';
-import { Input, Output, EventEmitter } from '@angular/core';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Todo } from '../types/todo';
+import { Store } from '@ngrx/store';
+import { AppState } from '../store/states/app.states';
+import { TodoRemove, TodoUpdate } from '../store/actions/todo.actions';
 
 @Component({
   selector: 'app-todo',
   templateUrl: './todo.component.html',
   styleUrls: ['./todo.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TodoComponent implements OnInit {
   @Input() todo: Todo;
 
-  @Output() remove: EventEmitter<Todo>;
+  isReadonly = true;
 
-  isReadonly: boolean = true;
-
-  constructor(private todosService: TodosService) {
-    this.remove = new EventEmitter<Todo>();
-  }
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {}
 
   toggleReadonly(toggle: boolean): void {
-    if (this.todo.title === '') return;
+    if (this.todo.title === '') { return; }
     this.isReadonly = !toggle;
   }
 
@@ -32,12 +30,21 @@ export class TodoComponent implements OnInit {
     }
   }
 
-  onChange(): void {
-    this.todosService.update(this.todo).subscribe();
+  updateState(state: boolean): void {
+    const todo = new Todo('');
+    Object.assign(todo, this.todo);
+    todo.isDone = state;
+    this.store.dispatch(new TodoUpdate(todo));
   }
 
-  onClick(): void {
-    this.todosService.remove(this.todo).subscribe();
-    this.remove.emit(this.todo);
+  updateTitle(title: string): void {
+    const todo = new Todo('');
+    Object.assign(todo, this.todo);
+    todo.title = title;
+    this.store.dispatch(new TodoUpdate(todo));
+  }
+
+  remove(): void {
+    this.store.dispatch(new TodoRemove(this.todo));
   }
 }

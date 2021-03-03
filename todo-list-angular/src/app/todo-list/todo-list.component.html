@@ -5,10 +5,10 @@
       class="todo__header__checkbox"
     >
       <input
-        #checkAll
+        #check
         type="checkbox"
-        [checked]="isTogglerChecked() | async"
-        (change)="toggleAll(checkAll.checked)"
+        [checked]="isMarkAllChecked() | async"
+        (change)="checkAll(check.checked)"
       />
       <span class="todo__header__checkbox__control">
         <svg>
@@ -21,23 +21,19 @@
       type="text"
       placeholder="What needs to be done?"
       [(ngModel)]="todoText"
-      (keyup.enter)="add()"
+      (keyup.enter)="create()"
     />
   </div>
 
   <div class="todo__list" *ngFor="let todo of todos$ | async">
-    <app-todo
-      *ngIf="isTodoVisible(todo)"
-      [todo]="todo"
-      (remove)="onRemove($event)"
-    ></app-todo>
+    <app-todo [todo]="todo"></app-todo>
   </div>
 
   <div *ngIf="(count$ | async) > 0" class="papper todo__footer">
     <p class="footer-text">
       {{ countActiveText$ | async }}
     </p>
-    <app-todo-filter [(filter)]="filter"></app-todo-filter>
+    <app-todo-filter></app-todo-filter>
     <p
       id="clear-completed"
       *ngIf="isClearCompletedVisible() | async"
