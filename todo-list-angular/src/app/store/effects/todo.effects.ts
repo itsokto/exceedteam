@@ -1,5 +1,6 @@
 import {
   TodoActionTypes,
+  TodoClearCompletedSuccess,
   TodoCreate,
   TodoCreateSuccess,
   TodoGetSuccess,
@@ -38,6 +39,22 @@ export class TodoEffects {
         return this.todoService.create(create.payload).pipe(
           map((todo) => {
             return new TodoCreateSuccess(todo);
+          }),
+          catchError((error) => {
+            return throwError(error);
+          })
+        );
+      })
+    )
+  );
+
+  ClearCompleted = createEffect(() =>
+    this.actions.pipe(
+      ofType(TodoActionTypes.CLEAR_COMPLETED),
+      switchMap(() => {
+        return this.todoService.clearCompleted().pipe(
+          map(() => {
+            return new TodoClearCompletedSuccess();
           }),
           catchError((error) => {
             return throwError(error);

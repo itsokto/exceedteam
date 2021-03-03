@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 import { TodosService } from '../services/todos.service';
 import { Todo, TodoFilter } from '../types/todo';
 import { Component, OnInit } from '@angular/core';
-import { TodoCreate, TodoGet } from '../store/actions/todo.actions';
+import { TodoClearCompleted, TodoCreate, TodoGet } from '../store/actions/todo.actions';
 import { AppState } from '../store/states/app.states';
 
 @Component({
@@ -66,9 +66,7 @@ export class TodoListComponent implements OnInit {
   }
 
   clearCompleted(): void {
-    this.todosService.clearCompleted().subscribe();
-
-    //this.todos = this.todos.filter((todo) => !todo.isDone);
+    this.store.dispatch(new TodoClearCompleted());
   }
 
   toggleAll(toggle: boolean): void {

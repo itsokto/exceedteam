@@ -15,6 +15,10 @@ export function reducer(state = initialTodoState, action: All): ITodoState {
       return todoAdapter.addOne(action.payload, state);
     }
 
+    case TodoActionTypes.CLEAR_COMPLETED_SUCCESS: {
+      return todoAdapter.removeMany(todo => todo.isDone, state);
+    }
+
     default: {
       return state;
     }
