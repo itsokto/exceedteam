@@ -7,7 +7,7 @@
       <input
         #checkAll
         type="checkbox"
-        [checked]="isTogglerChecked"
+        [checked]="isTogglerChecked() | async"
         (change)="toggleAll(checkAll.checked)"
       />
       <span class="todo__header__checkbox__control">
@@ -40,7 +40,7 @@
     <app-todo-filter [(filter)]="filter"></app-todo-filter>
     <p
       id="clear-completed"
-      *ngIf="isClearCompletedVisible"
+      *ngIf="isClearCompletedVisible() | async"
       class="footer-text"
       (click)="clearCompleted()"
     >

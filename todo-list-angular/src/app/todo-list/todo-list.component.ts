@@ -1,16 +1,17 @@
-import { map } from 'rxjs/operators';
+import { map, sequenceEqual } from 'rxjs/operators';
 import {
-  AppState,
   selectTodos,
   selectTodosCount,
   selectTodosActiveCount,
-} from './../store/states/app.states';
+  selectTodosDoneCount,
+} from './../store/selectors/todo.selectors';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { TodosService } from '../services/todos.service';
 import { Todo, TodoFilter } from '../types/todo';
 import { Component, OnInit } from '@angular/core';
-import { TodoGet } from '../store/actions/todo.actions';
+import { TodoCreate, TodoGet } from '../store/actions/todo.actions';
+import { AppState } from '../store/states/app.states';
 
 @Component({
   selector: 'app-todo-list',
@@ -20,10 +21,10 @@ import { TodoGet } from '../store/actions/todo.actions';
 export class TodoListComponent implements OnInit {
   filter: TodoFilter = TodoFilter.All;
   todoText: string;
-  todos: Todo[] = [];
   todos$: Observable<Todo[]>;
   count$: Observable<number>;
   countActive$: Observable<number>;
+  countDone$: Observable<number>;
   countActiveText$: Observable<string>;
 
   constructor(
@@ -32,6 +33,7 @@ export class TodoListComponent implements OnInit {
   ) {
     this.todos$ = this.store.select(selectTodos);
     this.count$ = this.store.select(selectTodosCount);
+    this.countDone$ = this.store.select(selectTodosDoneCount);
     this.countActive$ = this.store.select(selectTodosActiveCount);
     this.countActiveText$ = this.countActive$.pipe(
       map((length) =>
@@ -44,12 +46,12 @@ export class TodoListComponent implements OnInit {
     this.store.dispatch(new TodoGet());
   }
 
-  get isTogglerChecked(): boolean {
-    return this.todos.every((todo) => todo.isDone);
+  isTogglerChecked(): Observable<boolean> {
+    return this.countDone$.pipe(sequenceEqual(this.count$));
   }
 
-  get isClearCompletedVisible(): boolean {
-    return this.todos.some((todo) => todo.isDone);
+  isClearCompletedVisible(): Observable<boolean> {
+    return this.countDone$.pipe(map((length) => length > 0));
   }
 
   isTodoVisible(todo: Todo): boolean {
@@ -58,9 +60,7 @@ export class TodoListComponent implements OnInit {
   }
 
   add(): void {
-    this.todosService
-      .create(this.todoText)
-      .subscribe((data) => this.todos.push(data));
+    this.store.dispatch(new TodoCreate(this.todoText));
 
     this.todoText = '';
   }
@@ -68,22 +68,21 @@ export class TodoListComponent implements OnInit {
   clearCompleted(): void {
     this.todosService.clearCompleted().subscribe();
 
-    this.todos = this.todos.filter((todo) => !todo.isDone);
+    //this.todos = this.todos.filter((todo) => !todo.isDone);
   }
 
   toggleAll(toggle: boolean): void {
-    this.todos.forEach((todo) => {
-      todo.isDone = toggle;
-    });
+    // this.todos.forEach((todo) => {
+    //   todo.isDone = toggle;
+    // });
 
     this.todosService.toggleAll(toggle).subscribe();
   }
 
   onRemove(todo: Todo): void {
-    const index = this.todos.indexOf(todo);
-
-    if (index >= 0) {
-      this.todos.splice(index, 1);
-    }
+    // const index = this.todos.indexOf(todo);
+    // if (index >= 0) {
+    //   this.todos.splice(index, 1);
+    // }
   }
 }
