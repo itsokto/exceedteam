@@ -97,9 +97,7 @@ exports.delete = async (req, res) => {
 // Delete completed Todos from the database.
 exports.deleteCompleted = async (req, res) => {
   const result = await Todo.deleteMany(
-    { user: mongoose.Types.ObjectId(req.user.id) },
-    { isDone: true }
-  );
+    { user: mongoose.Types.ObjectId(req.user.id), isDone: true });
 
   res.send({
     message: `${result.deletedCount} Todos were deleted successfully!`,
