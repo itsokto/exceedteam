@@ -1,8 +1,9 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TodoFilter } from '../types/todo';
 import { AppState } from '../store/states/app.states';
 import { Store } from '@ngrx/store';
 import { TodoApplyFilter } from '../store/actions/todo.actions';
+import { selectTodosFilter } from '../store/selectors/todo.selectors';
 
 @Component({
   selector: 'app-todo-filter',
@@ -17,7 +18,9 @@ export class TodoFilterComponent implements OnInit {
     this.filters = [TodoFilter.All, TodoFilter.Active, TodoFilter.Completed];
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.store.select(selectTodosFilter).subscribe(filter => this.filter = filter);
+  }
 
   onChange(): void {
     this.store.dispatch(new TodoApplyFilter(this.filter));
