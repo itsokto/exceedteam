@@ -16,6 +16,7 @@ import { AuthEffects } from './store/effects/auth.effects';
 import { reducers } from './store/states/app.states';
 import { ActionReducer, MetaReducer, StoreModule } from '@ngrx/store';
 import { localStorageSync } from 'ngrx-store-localstorage';
+import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 
 export function localStorageSyncReducer(
   reducer: ActionReducer<any>
@@ -41,6 +42,9 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     HttpClientModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     EffectsModule.forRoot([AuthEffects, TodoEffects]),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25
+    }),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
