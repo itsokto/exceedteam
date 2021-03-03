@@ -7,7 +7,7 @@
       <input
         #check
         type="checkbox"
-        [checked]="isMarkAllChecked() | async"
+        [checked]="isMarkAllChecked$ | async"
         (change)="checkAll(check.checked)"
       />
       <span class="todo__header__checkbox__control">
@@ -36,7 +36,7 @@
     <app-todo-filter></app-todo-filter>
     <p
       id="clear-completed"
-      *ngIf="isClearCompletedVisible() | async"
+      *ngIf="isClearCompletedVisible$ | async"
       class="footer-text"
       (click)="clearCompleted()"
     >

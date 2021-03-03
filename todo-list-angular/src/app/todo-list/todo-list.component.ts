@@ -22,35 +22,27 @@ export class TodoListComponent implements OnInit {
   todoText: string;
   todos$: Observable<Todo[]>;
   count$: Observable<number>;
-  countActive$: Observable<number>;
   countDone$: Observable<number>;
   countActiveText$: Observable<string>;
+  isMarkAllChecked$: Observable<boolean>;
+  isClearCompletedVisible$: Observable<boolean>;
 
-  constructor(
-    private todosService: TodosService,
-    private store: Store<AppState>
-  ) {
+  constructor(private todosService: TodosService, private store: Store<AppState>) {}
+
+  ngOnInit(): void {
+    this.store.dispatch(new TodoGet());
+
     this.todos$ = this.store.select(selectTodosByFilter);
     this.count$ = this.store.select(selectTodosCount);
     this.countDone$ = this.store.select(selectTodosDoneCount);
-    this.countActive$ = this.store.select(selectTodosActiveCount);
-    this.countActiveText$ = this.countActive$.pipe(
+    this.countActiveText$ = this.store.select(selectTodosActiveCount).pipe(
       map((length) =>
         length === 1 ? `${length} item left` : `${length} items left`
       )
     );
-  }
-
-  ngOnInit(): void {
-    this.store.dispatch(new TodoGet());
-  }
-
-  isMarkAllChecked(): Observable<boolean> {
-    return combineLatest([this.countDone$, this.count$]).pipe(map(([countDone, totalCount]) => countDone === totalCount));
-  }
-
-  isClearCompletedVisible(): Observable<boolean> {
-    return this.countDone$.pipe(map((length) => length > 0));
+    this.isMarkAllChecked$ = combineLatest([this.countDone$, this.count$]).pipe(
+      map(([countDone, totalCount]) => countDone === totalCount));
+    this.isClearCompletedVisible$ = this.countDone$.pipe(map((length) => length > 0));
   }
 
   create(): void {
