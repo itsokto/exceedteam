@@ -31,16 +31,12 @@ export class TodoComponent implements OnInit {
   }
 
   updateState(state: boolean): void {
-    const todo = new Todo('');
-    Object.assign(todo, this.todo);
-    todo.isDone = state;
+    const todo = { ...this.todo, isDone: state };
     this.store.dispatch(new TodoUpdate(todo));
   }
 
   updateTitle(title: string): void {
-    const todo = new Todo('');
-    Object.assign(todo, this.todo);
-    todo.title = title;
+    const todo = { ...this.todo, title };
     this.store.dispatch(new TodoUpdate(todo));
   }
 
