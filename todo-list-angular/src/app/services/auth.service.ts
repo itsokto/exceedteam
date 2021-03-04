@@ -1,4 +1,4 @@
-import { AuthResponse } from './../types/auth.response';
+import { AuthResponse } from '../types/auth.response';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -42,6 +42,6 @@ export class AuthService {
   }
 
   private clearAuth(): void {
-    localStorage.removeItem('auth');
+    localStorage.removeItem('authState');
   }
 }
