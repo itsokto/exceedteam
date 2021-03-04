@@ -1,22 +1,17 @@
 @import "vars";
 
 .form-container {
-  max-width: 400px;
-  background: white;
-  margin: auto;
-  box-shadow: 0 20px 30px $dark-15;
+  @apply max-w-sm bg-white m-auto shadow-xl;
 }
 
 .form {
-  display: flex;
-  flex-direction: column;
-  row-gap: 1em;
-  padding: 8px;
+  @apply flex flex-col gap-y-4 p-4;
 
   &__input {
     display: flex;
     flex-direction: column;
     color: $dark-70;
+
     input {
       outline: none;
       border: none;
@@ -25,19 +20,23 @@
       color: inherit;
       transition: all 0.3s;
       padding: 8px;
+
       &::placeholder {
         font-style: italic;
         color: $dark-15;
       }
+
       &.ng-invalid {
         border-color: $primary-color;
       }
+
       &:hover,
       &:focus {
         border-color: $dark-70;
       }
     }
   }
+
   &__button {
     cursor: pointer;
     outline: none;
@@ -48,18 +47,20 @@
     transition: all 0.3s;
     font-size: inherit;
     font-weight: bold;
+
     &:hover {
       background: $background-color;
       color: $dark-70;
     }
   }
-}
 
-#register {
-  align-self: flex-end;
-  cursor: pointer;
-  text-decoration: none;
-  &:hover {
-    text-decoration: underline;
+  &__register {
+    align-self: flex-end;
+    cursor: pointer;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 }
