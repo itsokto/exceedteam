@@ -5,6 +5,7 @@
   cursor: pointer;
   white-space: nowrap;
   justify-self: right;
+
   &:hover {
     cursor: pointer;
     text-decoration: underline;
@@ -17,71 +18,76 @@
   background: #fff;
   box-shadow: 0 20px 30px $dark-15;
   margin: auto;
-}
 
-.todo__header {
-  display: flex;
-  align-items: center;
-  column-gap: 0.5em;
-  border-bottom: 1px solid $dark-10;
-  padding: 0 8px;
-  height: 3rem;
-  font-size: 1.5rem;
-}
 
-.todo__header__checkbox {
-  $self: &;
-  user-select: none;
-  cursor: pointer;
-  align-items: center;
-  font-size: 1.5rem;
-  color: $dark-15;
+  &__header {
+    display: flex;
+    align-items: center;
+    column-gap: 0.5em;
+    border-bottom: 1px solid $dark-10;
+    padding: 0 8px;
+    height: 3rem;
+    font-size: 1.5rem;
 
-  input {
-    display: none;
-    &:checked + .todo__header__checkbox__control {
-      svg {
-        color: $dark-70;
+
+    &__checkbox {
+      $self: &;
+      user-select: none;
+      cursor: pointer;
+      align-items: center;
+      font-size: 1.5rem;
+      color: $dark-15;
+
+      input {
+        display: none;
+
+        &:checked + .todo__header__checkbox__control {
+          svg {
+            color: $dark-70;
+          }
+        }
+      }
+
+      &__control {
+        display: inline-grid;
+        width: 1em;
+        height: 1em;
+        align-items: center;
+        justify-items: center;
+
+        svg {
+          width: 0.7em;
+          height: 0.7em;
+          color: $dark-15;
+          transition: all 0.1s;
+        }
+      }
+    }
+
+    &__input {
+      outline: none;
+      border: none;
+      width: 100%;
+      font-size: inherit;
+      color: $dark-70;
+
+      &::placeholder {
+        font-style: italic;
+        color: $dark-15;
       }
     }
   }
 
-  &__control {
-    display: inline-grid;
-    width: 1em;
-    height: 1em;
+  &__footer {
+    $self: &;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 12px;
     align-items: center;
-    justify-items: center;
-    svg {
-      width: 0.7em;
-      height: 0.7em;
-      color: $dark-15;
-      transition: all 0.1s;
-    }
   }
-}
 
-.todo__header__input {
-  outline: none;
-  border: none;
-  width: 100%;
-  font-size: inherit;
-  color: $dark-70;
-  &::placeholder {
-    font-style: italic;
-    color: $dark-15;
+  &__list {
+    display: flex;
+    flex-direction: column;
   }
-}
-
-.todo__footer {
-  $self: &;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  padding: 12px;
-  align-items: center;
-}
-
-.todo__list {
-  display: flex;
-  flex-direction: column;
 }
