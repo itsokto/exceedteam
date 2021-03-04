@@ -13,9 +13,6 @@ export class TodosService {
   constructor(private httpClient: HttpClient) {}
 
   create(text: string): Observable<Todo> {
-    if (text.trim() === '') {
-      return;
-    }
     const todo = new Todo(text);
     return this.httpClient.post<Todo>(this.baseUrl, todo);
   }

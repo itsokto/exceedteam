@@ -46,6 +46,10 @@ export class TodoListComponent implements OnInit {
   }
 
   create(): void {
+    if (this.todoText.trim() === '') {
+      return;
+    }
+
     this.store.dispatch(new TodoCreate(this.todoText));
 
     this.todoText = '';
