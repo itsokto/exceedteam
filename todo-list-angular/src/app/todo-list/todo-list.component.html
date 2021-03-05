@@ -29,7 +29,7 @@
     <app-todo [todo]="todo"></app-todo>
   </div>
 
-  <div *ngIf="(count$ | async) > 0" class="papper todo__footer">
+  <div *ngIf="(count$ | async) > 0" class="shadow-paper todo__footer">
     <p class="footer-text">
       {{ countActiveText$ | async }}
     </p>
