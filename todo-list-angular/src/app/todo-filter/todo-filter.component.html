@@ -1,8 +1,11 @@
 <div class="todo__filter">
-  <label class="todo__filter__item" *ngFor="let filterItem of filters">
+  <label [ngClass]="{'todo__filter__item--active': input.checked}" class="todo__filter__item"
+         *ngFor="let filterItem of filters">
     <input
+      #input
       type="radio"
       name="filter"
+      class="todo__filter__item__input"
       [value]="filterItem"
       [(ngModel)]="filter"
       (change)="onChange()"

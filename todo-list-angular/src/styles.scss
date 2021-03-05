@@ -1,3 +1,11 @@
 .footer-text {
   @apply text-sm text-gray-600;
 }
+
+.link {
+  @apply cursor-pointer select-none no-underline whitespace-nowrap;
+
+  &:hover {
+    @apply underline;
+  }
+}

@@ -25,8 +25,8 @@
     />
   </div>
 
-  <div class="todo__list" *ngFor="let todo of todos$ | async">
-    <app-todo [todo]="todo"></app-todo>
+  <div class="todo__list">
+    <app-todo *ngFor="let todo of todos$ | async" [todo]="todo" ></app-todo>
   </div>
 
   <div *ngIf="(count$ | async) > 0" class="shadow-paper todo__footer">
@@ -35,11 +35,9 @@
     </p>
     <app-todo-filter></app-todo-filter>
     <p
-      id="clear-completed"
       *ngIf="isClearCompletedVisible$ | async"
-      class="footer-text"
-      (click)="clearCompleted()"
-    >
+      class="footer-text link justify-self-end"
+      (click)="clearCompleted()">
       Clear completed
     </p>
   </div>

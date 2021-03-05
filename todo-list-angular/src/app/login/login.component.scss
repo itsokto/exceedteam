@@ -33,12 +33,4 @@
       @apply text-gray-600 bg-background;
     }
   }
-
-  &__register {
-    @apply cursor-pointer self-end no-underline;
-
-    &:hover {
-      @apply underline;
-    }
-  }
 }

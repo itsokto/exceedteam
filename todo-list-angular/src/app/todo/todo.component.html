@@ -1,7 +1,7 @@
 <div class="todo__item">
-  <label class="todo__checkbox">
+  <label class="todo__item__checkbox">
     <input #state type="checkbox" [ngModel]="todo.isDone" (change)="updateState(state.checked)"/>
-    <span class="todo__checkbox__control">
+    <span class="todo__item__checkbox__control">
       <svg>
         <use xlink:href="/assets/svg/check.svg#check"></use>
       </svg>
@@ -9,7 +9,7 @@
     <input
       #title
       type="text"
-      class="todo__checkbox__label"
+      class="todo__item__checkbox__label"
       [ngModel]="todo.title"
       [readonly]="isReadonly"
       (dblclick)="toggleReadonly(true)"

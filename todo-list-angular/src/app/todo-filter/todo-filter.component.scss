@@ -2,17 +2,14 @@
   @apply flex items-center justify-between;
 
   &__item {
-    @apply cursor-pointer select-none;
+    @apply flex cursor-pointer select-none border border-solid border-transparent rounded-sm p-1;
 
-    .footer-text {
-      @apply border border-solid border-transparent rounded-sm p-1;
+    &__input {
+      @apply hidden;
     }
 
-    input {
-      @apply hidden;
-      &:checked + .footer-text {
-        @apply border-primary;
-      }
+    &--active {
+      @apply border-primary;
     }
   }
 }

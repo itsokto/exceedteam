@@ -3,11 +3,47 @@
   @apply grid items-center gap-x-2 p-2 border-b border-solid border-gray-200;
   grid-template-columns: 1fr min-content;
 
+  &__checkbox {
+    $check: &;
+    @apply grid cursor-pointer select-none grid gap-x-2 items-center text-xl;
+    grid-template-columns: min-content auto;
+
+
+    input[type="checkbox"] {
+      @apply hidden;
+
+      &:checked + #{$check}__control {
+        @apply border-secondary;
+
+        svg {
+          @apply opacity-100;
+        }
+
+        & ~ #{$check}__label {
+          @apply text-gray-300 line-through;
+        }
+      }
+    }
+
+    &__control {
+      @apply inline-grid w-6 h-6 mx-1 items-center justify-items-center border border-solid border-gray-300 rounded-full text-secondary;
+
+      svg {
+        @apply opacity-0 w-3.5 h-3.5 rotate-12;
+      }
+    }
+
+    &__label {
+      @apply outline-none border-none text-gray-600;
+    }
+  }
+
+
   &__button {
     @apply inline-grid opacity-0 w-8 h-8 text-primary items-center justify-items-center;
 
     svg {
-      @apply w-3 h-3;
+      @apply w-full h-3.5;
     }
 
     &:hover {
@@ -22,37 +58,3 @@
   }
 }
 
-.todo__checkbox {
-  $self: &;
-  @apply cursor-pointer select-none grid gap-x-2 items-center text-2xl;
-  grid-template-columns: min-content auto;
-
-
-  input[type="checkbox"] {
-    @apply hidden;
-
-    &:checked + #{$self}__control {
-      @apply border-secondary;
-
-      svg {
-        @apply opacity-100;
-      }
-
-      & ~ #{$self}__label {
-        @apply text-gray-300 line-through;
-      }
-    }
-  }
-
-  &__control {
-    @apply inline-grid w-6 h-6 mx-1 items-center justify-items-center border border-solid border-gray-300 rounded-full text-secondary;
-
-    svg {
-      @apply opacity-0 w-2/3 h-2/3 rotate-12;
-    }
-  }
-
-  &__label {
-    @apply outline-none border-none text-gray-600;
-  }
-}
