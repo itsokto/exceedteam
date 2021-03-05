@@ -2,85 +2,59 @@
 
 .todo__item {
   $self: &;
-  display: grid;
-  align-items: center;
+  @apply grid items-center gap-x-2 p-2 border-b border-solid border-gray-200;
   grid-template-columns: 1fr min-content;
-  column-gap: 0.5em;
-  padding: 0 8px;
-  height: 3rem;
-  border-bottom: 1px solid $dark-10;
 
   &__button {
-    opacity: 0;
-    display: inline-grid;
-    width: 1em;
-    height: 1em;
-    color: darkred;
-    justify-self: right;
-    align-content: center;
-    justify-content: center;
+    @apply inline-grid opacity-0 w-8 h-8 text-primary items-center justify-items-center;
+
     svg {
-      width: 0.7em;
-      height: 0.7em;
+      @apply w-3 h-3;
     }
+
     &:hover {
-      color: crimson;
+      @apply text-red-600;
     }
   }
 
   &:hover {
-    .todo__item__button {
-      opacity: 1;
+    #{$self}__button {
+      @apply opacity-100;
     }
   }
 }
 
 .todo__checkbox {
   $self: &;
-  user-select: none;
-  cursor: pointer;
-  display: grid;
-  grid-column-gap: 0.5em;
+  @apply cursor-pointer select-none grid gap-x-2 items-center text-2xl;
   grid-template-columns: min-content auto;
-  align-items: center;
-  font-size: 1.5rem;
+
 
   input[type="checkbox"] {
-    display: none;
-    &:checked + .todo__checkbox__control {
-      border-color: $secondary-color;
+    @apply hidden;
+
+    &:checked + #{$self}__control {
+      @apply border-secondary;
+
       svg {
-        opacity: 1;
+        @apply opacity-100;
       }
 
-      & ~ .todo__checkbox__label {
-        color: $dark-15;
-        text-decoration: line-through;
+      & ~ #{$self}__label {
+        @apply text-gray-300 line-through;
       }
     }
   }
 
   &__control {
-    display: inline-grid;
-    width: 1em;
-    height: 1em;
-    align-items: center;
-    justify-items: center;
-    border: 1px solid $dark-15;
-    border-radius: 1em;
-    color: $secondary-color;
+    @apply inline-grid w-6 h-6 mx-1 items-center justify-items-center border border-solid border-gray-300 rounded-full text-secondary;
+
     svg {
-      opacity: 0;
-      width: 0.7em;
-      height: 0.7em;
-      transform: rotate(-15deg);
+      @apply opacity-0 w-2/3 h-2/3 rotate-12;
     }
   }
 
   &__label {
-    outline: none;
-    border: none;
-    color: $dark-70;
-    font-size: inherit;
+    @apply outline-none border-none text-gray-600;
   }
 }
