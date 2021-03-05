@@ -13,81 +13,48 @@
 }
 
 .todo {
-  max-width: 600px;
-  height: auto;
-  background: #fff;
-  box-shadow: 0 20px 30px $dark-15;
-  margin: auto;
-
+  @apply max-w-lg bg-white shadow-lg m-auto;
 
   &__header {
-    display: flex;
-    align-items: center;
-    column-gap: 0.5em;
-    border-bottom: 1px solid $dark-10;
-    padding: 0 8px;
-    height: 3rem;
-    font-size: 1.5rem;
-
+    @apply flex items-center gap-x-2 border-b border-solid border-gray-200 p-2 text-2xl;
 
     &__checkbox {
       $self: &;
-      user-select: none;
-      cursor: pointer;
-      align-items: center;
-      font-size: 1.5rem;
-      color: $dark-15;
+      @apply cursor-pointer select-none items-center text-gray-300 text-2xl;
 
       input {
-        display: none;
+        @apply hidden;
 
-        &:checked + .todo__header__checkbox__control {
+        &:checked + #{$self}__control {
           svg {
-            color: $dark-70;
+            @apply text-gray-600;
           }
         }
       }
 
       &__control {
-        display: inline-grid;
-        width: 1em;
-        height: 1em;
-        align-items: center;
-        justify-items: center;
+        @apply w-8 h-8 inline-grid items-center justify-items-center;
 
         svg {
-          width: 0.7em;
-          height: 0.7em;
-          color: $dark-15;
-          transition: all 0.1s;
+          @apply w-1/2 h-1/2 text-gray-300 transition-all duration-100;
         }
       }
     }
 
     &__input {
-      outline: none;
-      border: none;
-      width: 100%;
-      font-size: inherit;
-      color: $dark-70;
+      @apply outline-none border-none w-full text-gray-600;
 
       &::placeholder {
-        font-style: italic;
-        color: $dark-15;
+        @apply italic text-gray-300;
       }
     }
   }
 
   &__footer {
-    $self: &;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    padding: 12px;
-    align-items: center;
+    @apply grid grid-cols-3 items-center p-3;
   }
 
   &__list {
-    display: flex;
-    flex-direction: column;
+    @apply flex flex-col;
   }
 }
