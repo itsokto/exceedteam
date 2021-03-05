@@ -1,23 +1,17 @@
-@import "vars";
-
 .todo__filter {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 170px;
+  @apply flex items-center justify-between;
 
   &__item {
-    user-select: none;
-    cursor: pointer;
+    @apply cursor-pointer select-none;
+
     .footer-text {
-      border: 1px solid transparent;
-      border-radius: 2px;
-      padding: 4px;
+      @apply border border-solid border-transparent rounded-sm p-1;
     }
+
     input {
-      display: none;
+      @apply hidden;
       &:checked + .footer-text {
-        border-color: $primary-color;
+        @apply border-primary;
       }
     }
   }
