@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { Todo } from '../types/todo';
 import { Store } from '@ngrx/store';
 import { AppState } from '../store/states/app.states';
@@ -35,7 +35,15 @@ export class TodoComponent implements OnInit {
     this.store.dispatch(new TodoUpdate(todo));
   }
 
-  updateTitle(title: string): void {
+  updateTitle(event: Event): void {
+    const element = event.target as HTMLInputElement;
+    const title = element?.value.trim();
+
+    if (title === '') {
+      element.value = this.todo.title;
+      return;
+    }
+
     const todo = { ...this.todo, title };
     this.store.dispatch(new TodoUpdate(todo));
   }

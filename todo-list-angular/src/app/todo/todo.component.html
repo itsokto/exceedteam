@@ -16,7 +16,7 @@
       (keyup.enter)="toggleReadonly(false)"
       (focusout)="toggleReadonly(false)"
       (mousedown)="preventSelection($event)"
-      (change)="updateTitle(title.value)"
+      (change)="updateTitle($event)"
     />
   </label>
   <div class="todo__item__button" (click)="remove()">
