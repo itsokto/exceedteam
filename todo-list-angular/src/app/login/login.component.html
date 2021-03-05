@@ -1,7 +1,10 @@
 <div class="form-container">
   <form class="shadow-paper form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <p *ngIf="(errorMessage | async) as error" class="form__error">
+      {{ error }}
+    </p>
     <label class="form__input">
-      <input type="text" formControlName="name" placeholder="Name" />
+      <input type="text" formControlName="name" placeholder="Name"/>
     </label>
     <label class="form__input">
       <input

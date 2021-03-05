@@ -1,10 +1,11 @@
-import { Observable } from 'rxjs';
+import { interval, merge, Observable, of } from 'rxjs';
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AppState, selectAuthState } from '../store/states/app.states';
 import { IAuthState } from '../store/states/auth.state';
 import { Register } from '../store/actions/auth.actions';
+import { map, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-register',
@@ -14,8 +15,8 @@ import { Register } from '../store/actions/auth.actions';
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
-  state: Observable<any>;
-  errorMessage: string;
+  state: Observable<IAuthState>;
+  errorMessage: Observable<string>;
 
   constructor(private store: Store<AppState>) {
     this.registerForm = new FormGroup({
@@ -30,12 +31,11 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.state.subscribe((state: IAuthState) => {
-      this.errorMessage = state.errorMessage;
-    });
+    const errorInterval = interval(5000).pipe(map(() => ''));
+    this.errorMessage = merge(this.state.pipe(switchMap(state => of(state.errorMessage))), errorInterval);
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.store.dispatch(new Register(this.registerForm.value));
   }
 }
