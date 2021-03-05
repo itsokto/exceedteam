@@ -1,3 +1,5 @@
+const defaultTheme = require('tailwindcss/defaultTheme');
+
 module.exports = {
   // Tailwind Paths
   configJS: 'tailwind.config.js',
@@ -20,5 +22,15 @@ module.exports = {
     '.js'
   ],
   extractors: [],
-  content: []
+  content: [],
+  theme: {
+    ...defaultTheme,
+    extend: {
+      colors: {
+        primary: '#ead8d8',
+        secondary: '#79b5ab',
+        background: '#f5f5f5'
+      },
+    }
+  }
 }

@@ -1,66 +1,44 @@
-@import "vars";
-
 .form-container {
   @apply max-w-sm bg-white m-auto shadow-xl;
 }
 
 .form {
-  @apply flex flex-col gap-y-4 p-4;
+  @apply flex flex-col gap-y-4 p-2;
 
   &__input {
-    display: flex;
-    flex-direction: column;
-    color: $dark-70;
+    @apply flex flex-col text-base text-gray-600;
 
     input {
-      outline: none;
-      border: none;
-      border-bottom: 1px solid $dark-10;
-      font-size: inherit;
-      color: inherit;
-      transition: all 0.3s;
-      padding: 8px;
+      @apply p-2 outline-none border-b-2 border-solid border-gray-300 transition-all duration-300;
 
       &::placeholder {
-        font-style: italic;
-        color: $dark-15;
+        @apply italic text-gray-300;
       }
 
       &.ng-invalid {
-        border-color: $primary-color;
+        @apply border-primary;
       }
 
       &:hover,
       &:focus {
-        border-color: $dark-70;
+        @apply border-gray-600;
       }
     }
   }
 
   &__button {
-    cursor: pointer;
-    outline: none;
-    border: none;
-    padding: 8px;
-    background: $primary-color;
-    color: #fff;
-    transition: all 0.3s;
-    font-size: inherit;
-    font-weight: bold;
+    @apply cursor-pointer outline-none border-none p-2 text-base text-white bg-primary transition-all duration-300 font-bold;
 
     &:hover {
-      background: $background-color;
-      color: $dark-70;
+      @apply text-gray-600 bg-background;
     }
   }
 
   &__register {
-    align-self: flex-end;
-    cursor: pointer;
-    text-decoration: none;
+    @apply cursor-pointer self-end no-underline;
 
     &:hover {
-      text-decoration: underline;
+      @apply underline;
     }
   }
 }
