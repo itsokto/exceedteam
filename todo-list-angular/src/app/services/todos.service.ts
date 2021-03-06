@@ -44,8 +44,6 @@ export class TodosService {
   }
 
   toggleAll(toggle: boolean): Observable<TodoResponse> {
-    return this.httpClient.patch<TodoResponse>(this.baseUrl, {
-      toggle: toggle,
-    });
+    return this.httpClient.patch<TodoResponse>(this.baseUrl, null, { params: { toggle: toggle.toString() } });
   }
 }

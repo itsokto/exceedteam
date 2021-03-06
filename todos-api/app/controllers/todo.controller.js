@@ -106,9 +106,7 @@ exports.deleteCompleted = async (req, res) => {
 
 exports.toggleAll = async (req, res) => {
   const result = await Todo.updateMany(
-    { user: mongoose.Types.ObjectId(req.user.id) },
-    req.body
-  );
+    { user: mongoose.Types.ObjectId(req.user.id) }, { $set: { isDone: req.query.toggle } });
 
   res.send({
     message: `${result.nModified} Todos were updated successfully!`,
