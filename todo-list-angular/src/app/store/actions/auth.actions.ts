@@ -1,4 +1,4 @@
-import { AuthResponse } from './../../types/auth.response';
+import { AuthResponse } from '../../types/auth.response';
 import { Action } from '@ngrx/store';
 
 export enum AuthActionTypes {
@@ -46,7 +46,7 @@ export class RegisterFailure implements Action {
 
 export class Refresh implements Action {
   readonly type = AuthActionTypes.REFRESH;
-  constructor(public payload: any) {}
+  constructor(public payload: string) {}
 }
 
 export class RefreshSuccess implements Action {

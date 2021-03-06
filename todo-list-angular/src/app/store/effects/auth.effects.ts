@@ -119,7 +119,7 @@ export class AuthEffects {
       ofType(AuthActionTypes.REFRESH),
       map((action: Refresh) => action.payload),
       switchMap((payload) => {
-        return this.authService.refresh(payload.refreshToken).pipe(
+        return this.authService.refresh(payload).pipe(
           map((auth) => {
             return new RefreshSuccess(auth);
           }),
