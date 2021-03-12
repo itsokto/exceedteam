@@ -3,14 +3,15 @@ import { Document } from 'mongoose';
 import { User } from "./user.schema";
 import * as mongoose from "mongoose";
 
-export type CatDocument = Todo & Document;
+export type TodoDocument = Todo & Document;
 
 @Schema()
 export class Todo {
-  title: String;
-  isDone: Boolean;
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: User.name})
+  id: string;
+  title: string;
+  isDone: boolean;
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
   user: User;
 }
 
-export const CatSchema = SchemaFactory.createForClass(Todo);
+export const TodoSchema = SchemaFactory.createForClass(Todo);

@@ -7,10 +7,10 @@ export type UserDocument = User & Document;
 
 @Schema()
 export class User {
-  _id: mongoose.Schema.Types.ObjectId;
-  name: String;
-  password: String;
-  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: Todo.name }] })
+  id: string;
+  name: string;
+  password: string;
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Todo' }] })
   todos: Todo[];
 }
 

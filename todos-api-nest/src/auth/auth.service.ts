@@ -2,12 +2,26 @@ import { Injectable } from '@nestjs/common';
 import { User, UserDocument } from "../schemas/user.schema";
 import { Model } from "mongoose";
 import { InjectModel } from "@nestjs/mongoose";
-import { JwtService } from "@nestjs/jwt";
+import { JwtService, JwtSignOptions } from "@nestjs/jwt";
 import { AuthResponse } from "./auth.response";
+import { SignUser } from "../models/SignUser";
+
+const config = require('../configs/jwt.config');
+
+const signOptions: JwtSignOptions = {
+  expiresIn: config.expiresIn,
+  secret: config.secret
+};
+
+const refreshSignOptions: JwtSignOptions = {
+  expiresIn: config.refreshExpiresIn,
+  secret: config.secret
+};
 
 @Injectable()
 export class AuthService {
-  constructor(@InjectModel(User.name) private userDocument: Model<UserDocument>, private readonly jwtService: JwtService) {}
+  constructor(@InjectModel(User.name) private userDocument: Model<UserDocument>,
+              private readonly jwtService: JwtService) {}
 
   async login(user: User): Promise<AuthResponse> {
     const userDoc = await this.userDocument.findOne({ name: user.name });
@@ -16,26 +30,14 @@ export class AuthService {
       throw "Username or password is incorrect!";
     }
 
-    const accessToken = await this.jwtService.signAsync(userDoc);
-    const refreshToken = await this.jwtService.signAsync(userDoc);
-
-    return {
-      accessToken: accessToken,
-      refreshToken: refreshToken
-    };
+    return this.generateAuth(userDoc);
   }
 
   async refresh(auth: AuthResponse): Promise<AuthResponse> {
     const user = await this.jwtService.verifyAsync<User>(auth.refreshToken);
-    const userDoc = await this.userDocument.findById(user._id);
+    const userDoc = await this.userDocument.findById(user.id);
 
-    const accessToken = await this.jwtService.signAsync(userDoc);
-    const refreshToken = await this.jwtService.signAsync(userDoc);
-
-    return {
-      accessToken: accessToken,
-      refreshToken: refreshToken
-    };
+    return this.generateAuth(userDoc);
   }
 
   async register(user: User): Promise<AuthResponse> {
@@ -47,8 +49,15 @@ export class AuthService {
 
     userDoc = await this.userDocument.create(user);
 
-    const accessToken = await this.jwtService.signAsync(userDoc);
-    const refreshToken = await this.jwtService.signAsync(userDoc);
+    return this.generateAuth(userDoc);
+  }
+
+  private async generateAuth(user: User): Promise<AuthResponse> {
+    const signUser: SignUser = user;
+    console.log(signUser);
+
+    const accessToken = await this.jwtService.signAsync({ signUser }, signOptions);
+    const refreshToken = await this.jwtService.signAsync({ signUser }, refreshSignOptions);
 
     return {
       accessToken: accessToken,

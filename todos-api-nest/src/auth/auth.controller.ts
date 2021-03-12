@@ -3,21 +3,21 @@ import { AuthService } from "./auth.service";
 import { User } from "../schemas/user.schema";
 import { AuthResponse } from "./auth.response";
 
-@Controller()
+@Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Post()
+  @Post('login')
   login(@Body() user: User): Promise<AuthResponse> {
     return this.authService.login(user);
   }
 
-  @Post()
+  @Post('register')
   register(@Body() user: User): Promise<AuthResponse> {
     return this.authService.register(user);
   }
 
-  @Post()
+  @Post('refresh')
   refresh(@Body() auth: AuthResponse): Promise<AuthResponse> {
     return this.authService.refresh(auth);
   }
