@@ -6,7 +6,9 @@ import { User } from "../decorators/user.decorator";
 import { AuthGuard } from "@nestjs/passport";
 import { JwtUser } from "../auth/models/jwt.user";
 import { TodoDto } from "./models/todo.dto";
+import { ApiTags } from "@nestjs/swagger";
 
+@ApiTags('todos')
 @Controller('todos')
 @UseGuards(AuthGuard('jwt'))
 export class TodoController {

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { User, UserDocument } from "../schemas/user.schema";
 import { Model } from "mongoose";
 import { InjectModel } from "@nestjs/mongoose";
@@ -30,15 +30,20 @@ export class AuthService {
   async login(user: LoginUser): Promise<AuthResponse> {
     const userDoc = await this.userDocument.findOne({ name: user.name }).exec();
 
-    if (!userDoc && user.password !== userDoc.password) {
-      throw "Username or password is incorrect!";
+    if (user.password !== userDoc?.password) {
+      throw new HttpException("Username or password is incorrect", HttpStatus.BAD_REQUEST);
     }
 
     return this.generateAuth(userDoc);
   }
 
   async refresh(auth: AuthResponse): Promise<AuthResponse> {
-    const user = await this.jwtService.verifyAsync<JwtUser>(auth.refreshToken);
+    let user: JwtUser;
+    try {
+      user = await this.jwtService.verifyAsync<JwtUser>(auth.refreshToken);
+    } catch {
+      throw new HttpException("Invalid token", HttpStatus.UNAUTHORIZED);
+    }
     const userDoc = await this.userDocument.findById(user.id).exec();
     return this.generateAuth(userDoc);
   }
@@ -47,7 +52,7 @@ export class AuthService {
     let userDoc = await this.userDocument.findOne({ name: user.name }).exec();
 
     if (userDoc) {
-      throw `User with name ${user.name} already exist.`
+      throw new HttpException("User already exist", HttpStatus.BAD_REQUEST);
     }
 
     userDoc = await this.userDocument.create(user);
