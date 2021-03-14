@@ -55,6 +55,26 @@
     "ora" "5.3.0"
     "rxjs" "6.6.3"
 
+"@automapper/classes@^3.3.0":
+  "integrity" "sha512-De3a+9uBo7bdWgK+80fU2nprnNsipAhUmc1Ym65RR1i27vM8GSPXNMOKaAbh/VBWVaiiFh7jhR+1S4LnZecCvg=="
+  "resolved" "https://registry.npmjs.org/@automapper/classes/-/classes-3.3.0.tgz"
+  "version" "3.3.0"
+
+"@automapper/core@3.3.0":
+  "integrity" "sha512-+OQcZ6G8o6z3OIprq4T9OrIRmSPJPgX+TRDa9h0QDj3LQqUCIB2dw6Gbh6OA9udq6qhoF3f93Qlza/8iG6Ra6A=="
+  "resolved" "https://registry.npmjs.org/@automapper/core/-/core-3.3.0.tgz"
+  "version" "3.3.0"
+
+"@automapper/nestjs@^3.3.0":
+  "integrity" "sha512-utkIASAqp0UzWnNYxCLu53GAlgUMZwlooPxJs9/O2yTiQ+YhtfR6TL2ucg0QOvXb3LHb22gTWrhg7Sxp/IRl3A=="
+  "resolved" "https://registry.npmjs.org/@automapper/nestjs/-/nestjs-3.3.0.tgz"
+  "version" "3.3.0"
+
+"@automapper/types@3.3.0":
+  "integrity" "sha512-NxpFAa5EJFY8KmaYNiZFOwQWHjWaaIhdWYW7Bardt8qZZZ44ug/3zh84DnhMxnTF7uIZOEs6RfxR7z/Mtx/dOg=="
+  "resolved" "https://registry.npmjs.org/@automapper/types/-/types-3.3.0.tgz"
+  "version" "3.3.0"
+
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.12.13", "@babel/code-frame@^7.8.3":
   "integrity" "sha512-HV1Cm0Q3ZrpCR93tkWOYiuYIgLxZXZFVG2VgK+MBWjUqZTundupbfx2aXarXuw5Ko5aMcjtJgbSs4vUGBS5v6g=="
   "resolved" "https://registry.npmjs.org/@babel/code-frame/-/code-frame-7.12.13.tgz"
@@ -589,7 +609,7 @@
     "webpack" "5.11.0"
     "webpack-node-externals" "2.5.2"
 
-"@nestjs/common@^6.0.0 || ^7.0.0", "@nestjs/common@^7.0.0", "@nestjs/common@^7.6.13":
+"@nestjs/common@^6.0.0 || ^7.0.0", "@nestjs/common@^6.8.0 || ^7.0.0", "@nestjs/common@^7.0.0", "@nestjs/common@^7.0.8", "@nestjs/common@^7.6.13":
   "integrity" "sha512-xijw6so4yA8Ywi8mnrA7Kz97ZC36u20Eyb5/XvmokdLcgTcTyHVdE39r44JYnjHPf8SKZoJ965zdu/fKl4s4GQ=="
   "resolved" "https://registry.npmjs.org/@nestjs/common/-/common-7.6.13.tgz"
   "version" "7.6.13"
@@ -599,7 +619,7 @@
     "tslib" "2.1.0"
     "uuid" "8.3.2"
 
-"@nestjs/core@^6.0.0 || ^7.0.0", "@nestjs/core@^7.0.0", "@nestjs/core@^7.6.13":
+"@nestjs/core@^6.0.0 || ^7.0.0", "@nestjs/core@^6.8.0 || ^7.0.0", "@nestjs/core@^7.0.0", "@nestjs/core@^7.6.13":
   "integrity" "sha512-8oY8yZSgri2DngqmvBMtwYw1GIAaXbUXS7Y0mp/iSZ6jP7CQqYCybdcMPneunrt5PG8rtJsq6n+4JNRvxXrVmA=="
   "resolved" "https://registry.npmjs.org/@nestjs/core/-/core-7.6.13.tgz"
   "version" "7.6.13"
@@ -619,6 +639,11 @@
   dependencies:
     "@types/jsonwebtoken" "8.5.0"
     "jsonwebtoken" "8.5.1"
+
+"@nestjs/mapped-types@0.4.0":
+  "integrity" "sha512-TVtd/aTb7EqPhVczdeuvzF9dY0fyE3ivvCstc2eO+AkNqrfzSG1kXYYiUUznKjd0qDa8g2TmPSmHUQ21AXsV1Q=="
+  "resolved" "https://registry.npmjs.org/@nestjs/mapped-types/-/mapped-types-0.4.0.tgz"
+  "version" "0.4.0"
 
 "@nestjs/mongoose@^7.2.4":
   "integrity" "sha512-NTE/IwijFUEJytPHLoHRYe0X5p16W1Awf8tm6I3mWsIUuBnSDfMyN0fy30uVaM/exYvCkMwEsAVpeSeKVPMHxg=="
@@ -650,6 +675,15 @@
     "@angular-devkit/schematics" "11.2.3"
     "fs-extra" "9.1.0"
     "pluralize" "8.0.0"
+
+"@nestjs/swagger@^4.7.16":
+  "integrity" "sha512-3jExImHwxYpNAaP/B7Egmwjjm2Zu8fDZ/wlTp1jwmxRN/KdaAsTep3d5+lrdgVp30KltYviJ5uvw0LQXEQuaDA=="
+  "resolved" "https://registry.npmjs.org/@nestjs/swagger/-/swagger-4.7.16.tgz"
+  "version" "4.7.16"
+  dependencies:
+    "@nestjs/mapped-types" "0.4.0"
+    "lodash" "4.17.21"
+    "path-to-regexp" "3.2.0"
 
 "@nestjs/testing@^7.6.13":
   "integrity" "sha512-HQx6xarUoDImpoF/rPzZ1yewkNURrx7sIeOQqmC+5Jx5DO8bk7qvz3bEnhIsGaM4G782MkMUD6qj1vPMcBU+zg=="
@@ -992,6 +1026,11 @@
   "version" "3.13.0"
   dependencies:
     "source-map" "^0.6.1"
+
+"@types/validator@^13.1.3":
+  "integrity" "sha512-DaOWN1zf7j+8nHhqXhIgNmS+ltAC53NXqGxYuBhWqWgqolRhddKzfZU814lkHQSTG0IUfQxU7Cg0gb8fFWo2mA=="
+  "resolved" "https://registry.npmjs.org/@types/validator/-/validator-13.1.3.tgz"
+  "version" "13.1.3"
 
 "@types/webpack-sources@*":
   "integrity" "sha512-LXn/oYIpBeucgP1EIJbKQ2/4ZmpvRl+dlrFdX7+94SKRUV3Evy3FsfMZY318vGhkWUS5MPhtOM3w1/hCOAOXcg=="
@@ -1834,6 +1873,11 @@
   "resolved" "https://registry.npmjs.org/cjs-module-lexer/-/cjs-module-lexer-0.6.0.tgz"
   "version" "0.6.0"
 
+"class-transformer@*", "class-transformer@^0.2.0 || ^0.3.0 || ^0.4.0":
+  "integrity" "sha512-ETWD/H2TbWbKEi7m9N4Km5+cw1hNcqJSxlSYhsLsNjQzWWiZIYA1zafxpK9PwVfaZ6AqR5rrjPVUBGESm5tQUA=="
+  "resolved" "https://registry.npmjs.org/class-transformer/-/class-transformer-0.4.0.tgz"
+  "version" "0.4.0"
+
 "class-utils@^0.3.5":
   "integrity" "sha512-qOhPa/Fj7s6TY8H8esGu5QNpMMQxz79h+urzrNYN6mn+9BnxlDGf5QZ+XeCDsxSjPqsSR56XOZOJmpeurnLMeg=="
   "resolved" "https://registry.npmjs.org/class-utils/-/class-utils-0.3.6.tgz"
@@ -1843,6 +1887,15 @@
     "define-property" "^0.2.5"
     "isobject" "^3.0.0"
     "static-extend" "^0.1.1"
+
+"class-validator@*", "class-validator@^0.11.1 || ^0.12.0 || ^0.13.0":
+  "integrity" "sha512-zWIeYFhUitvAHBwNhDdCRK09hWx+P0HUwFE8US8/CxFpMVzkUK8RJl7yOIE+BVu2lxyPNgeOaFv78tLE47jBIg=="
+  "resolved" "https://registry.npmjs.org/class-validator/-/class-validator-0.13.1.tgz"
+  "version" "0.13.1"
+  dependencies:
+    "@types/validator" "^13.1.3"
+    "libphonenumber-js" "^1.9.7"
+    "validator" "^13.5.2"
 
 "cli-cursor@^3.1.0":
   "integrity" "sha512-I/zHAwsKf9FqGoXM4WWRACob9+SNukZTd94DWF57E4toouRulbCxcUh6RKUEOQlYTHJnzkPMySvPNaaSLNfLZw=="
@@ -2571,7 +2624,7 @@
     "jest-message-util" "^26.6.2"
     "jest-regex-util" "^26.0.0"
 
-"express@4.17.1":
+"express@>=4.0.0", "express@4.17.1":
   "integrity" "sha512-mHJ9O79RqluphRrcw2X/GTh3k9tVv8YcoyY4Kkh4WDMUYKRZUq0h1o0w2rrrxBqM7VoeUVqgb27xlEMXTnYt4g=="
   "resolved" "https://registry.npmjs.org/express/-/express-4.17.1.tgz"
   "version" "4.17.1"
@@ -4042,6 +4095,11 @@
     "prelude-ls" "~1.1.2"
     "type-check" "~0.3.2"
 
+"libphonenumber-js@^1.9.7":
+  "integrity" "sha512-DOvAj9Now6KqP+L1Q3JrM3iNhH/mXiOPTj6kxb9OnJbYsVYRlVdvRY1kCpU3Tz9VegIEi6MgDrviBaAnvB3aSw=="
+  "resolved" "https://registry.npmjs.org/libphonenumber-js/-/libphonenumber-js-1.9.13.tgz"
+  "version" "1.9.13"
+
 "lines-and-columns@^1.1.6":
   "integrity" "sha1-HADHQ7QzzQpOgHWPe2SldEDZ/wA="
   "resolved" "https://registry.npmjs.org/lines-and-columns/-/lines-and-columns-1.1.6.tgz"
@@ -4120,7 +4178,7 @@
   "resolved" "https://registry.npmjs.org/lodash.toarray/-/lodash.toarray-4.4.0.tgz"
   "version" "4.4.0"
 
-"lodash@^4.17.15", "lodash@^4.17.19", "lodash@^4.17.20", "lodash@4.x":
+"lodash@^4.17.15", "lodash@^4.17.19", "lodash@^4.17.20", "lodash@4.17.21", "lodash@4.x":
   "integrity" "sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg=="
   "resolved" "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz"
   "version" "4.17.21"
@@ -5046,7 +5104,7 @@
   dependencies:
     "resolve" "^1.1.6"
 
-"reflect-metadata@^0.1.12", "reflect-metadata@^0.1.13":
+"reflect-metadata@^0.1.12", "reflect-metadata@^0.1.13", "reflect-metadata@~0.1.13":
   "integrity" "sha512-Ts1Y/anZELhSsjMcU605fU9RE4Oi3p5ORujwbIKXfWa+0Zxs510Qrmrce5/Jowq3cHSZSJqBjypxmHarc+vEWg=="
   "resolved" "https://registry.npmjs.org/reflect-metadata/-/reflect-metadata-0.1.13.tgz"
   "version" "0.1.13"
@@ -5798,6 +5856,18 @@
     "has-flag" "^4.0.0"
     "supports-color" "^7.0.0"
 
+"swagger-ui-dist@^3.18.1":
+  "integrity" "sha512-SUqZbt0WQytjaI/bUr2gn8IqFE+Te6Tl4uA7n4xtylRdXKXmMm5s/mfTtvpnleHBjxcmQ6ONTA9ilN4iOxMulQ=="
+  "resolved" "https://registry.npmjs.org/swagger-ui-dist/-/swagger-ui-dist-3.45.0.tgz"
+  "version" "3.45.0"
+
+"swagger-ui-express@*", "swagger-ui-express@^4.1.6":
+  "integrity" "sha512-Xs2BGGudvDBtL7RXcYtNvHsFtP1DBFPMJFRxHe5ez/VG/rzVOEjazJOOSc/kSCyxreCTKfJrII6MJlL9a6t8vw=="
+  "resolved" "https://registry.npmjs.org/swagger-ui-express/-/swagger-ui-express-4.1.6.tgz"
+  "version" "4.1.6"
+  dependencies:
+    "swagger-ui-dist" "^3.18.1"
+
 "symbol-observable@3.0.0":
   "integrity" "sha512-6tDOXSHiVjuCaasQSWTmHUWn4PuG7qa3+1WT031yTc/swT7+rLiw3GOrFxaH1E3lLP09dH3bVuVDf2gK5rxG3Q=="
   "resolved" "https://registry.npmjs.org/symbol-observable/-/symbol-observable-3.0.0.tgz"
@@ -6213,6 +6283,11 @@
   dependencies:
     "spdx-correct" "^3.0.0"
     "spdx-expression-parse" "^3.0.0"
+
+"validator@^13.5.2":
+  "integrity" "sha512-mD45p0rvHVBlY2Zuy3F3ESIe1h5X58GPfAtslBjY7EtTqGquZTj+VX/J4RnHWN8FKq0C9WRVt1oWAcytWRuYLQ=="
+  "resolved" "https://registry.npmjs.org/validator/-/validator-13.5.2.tgz"
+  "version" "13.5.2"
 
 "vary@^1", "vary@~1.1.2":
   "integrity" "sha1-IpnwLG3tMNSllhsLn3RSShj2NPw="
